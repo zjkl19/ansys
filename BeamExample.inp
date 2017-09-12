@@ -1,0 +1,80 @@
+finish
+/clear
+/config,nres,2000000
+/prep7
+
+a=2.125E-9                 !损伤调整刚度 +-10%
+e=2.1e11                   !弹模
+p=7900                     !密度
+
+
+!主梁截面属性（无损）
+et,3,beam4
+mp,ex,3,e                   !弹模，铝
+mp,nuxy,3,0.3
+mp,dens,3,p                    !密度
+mp,damp,3,0.02
+r,	3,	0.00015,	2.125E-9,	1   !面积，刚度
+
+
+!主梁截面属性（损伤）
+et,5,beam4
+mp,ex,5,e                   !弹模，铝
+mp,nuxy,5,0.3
+mp,dens,5,p                    !密度
+mp,damp,5,0.02
+r,	5,	0.00015,a	,	1   !面积，刚度
+
+!建立节点
+!主梁节点
+*do,i,1,11
+n,i,(i-1)
+*enddo
+
+!建立主梁单元
+type,3
+mat,3  
+real,3 
+*do,i,1,4
+en,i,i,i+1
+*enddo
+
+!建立主梁单元(损伤)
+type,5
+mat,5  
+real,5 
+*do,i,5,6
+en,i,i,i+1
+*enddo
+
+!建立主梁单元
+type,3
+mat,3 
+real,3 
+*do,i,7,10
+en,i,i,i+1
+*enddo
+
+d,1,all 
+d,11,all 
+finish
+
+
+
+!模态分析             
+/SOLU                 
+pstres,on             
+acel,,9.8             
+solve               
+finish  
+
+/SOLU                                                                
+ANTYPE,2    
+pstres,on                                                                           
+MODOPT,lanb,20,,,,1                         
+MXPAND,20, , ,yes                                                                                 
+SOLVE                                              
+FINISH   
+
+/post1
+set,list   
