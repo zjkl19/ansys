@@ -1,0 +1,101 @@
+
+finish
+/clear
+/config,nres,2000000
+/prep7
+rndNum=1
+e=2.1e11                   !弹模
+p=7900                     !密度
+
+dFactor=0.9+rndNum*0.1    !损伤系数
+
+E0=2.125E-9
+a=dFactor*E0               !损伤后刚度 -10%
+
+nEtNoDama=3		!无损单元单元号
+nEtDama=5    !有损单元单元号
+
+rNoDama=3   !损伤单元实常数
+rDama=5   !无损单元实常数
+
+!主梁截面属性（无损）
+et,nEtNoDama,beam4
+mp,ex,nEtNoDama,e                   !弹模，铝
+mp,nuxy,nEtNoDama,0.3               !泊松比
+mp,dens,nEtNoDama,p                    !密度
+mp,damp,nEtNoDama,0.02
+r,	rNoDama,	0.00015,	E0,	1   !面积，刚度
+
+
+!主梁截面属性（损伤）
+et,nEtDama,beam4
+mp,ex,nEtDama,e                   !弹模，铝
+mp,nuxy,nEtDama,0.3
+mp,dens,nEtDama,p                    !密度
+mp,damp,nEtDama,0.02
+r,	rDama,	0.00015,a	,	1   !面积，刚度
+
+!建立节点
+!主梁节点
+*do,i,1,11
+n,i,(i-1)
+*enddo
+
+!建立主梁单元
+type,nEtNoDama
+mat,nEtNoDama  
+real,rNoDama 
+*do,i,1,4
+en,i,i,i+1
+*enddo
+
+!建立主梁单元(损伤)
+type,nEtDama
+mat,nEtDama  
+real,rDama 
+*do,i,5,6
+en,i,i,i+1
+*enddo
+
+!建立主梁单元
+type,nEtNoDama
+mat,nEtNoDama 
+real,nEtNoDama 
+*do,i,7,10
+en,i,i,i+1
+*enddo
+
+d,1,all 
+d,11,all 
+finish
+
+
+
+!模态分析             
+/SOLU                 
+pstres,on             
+acel,,9.8             
+solve               
+finish  
+
+/SOLU                                                                
+ANTYPE,2    
+pstres,on                                                                           
+MODOPT,lanb,20,,,,1                         
+MXPAND,20, , ,yes                                                                                 
+SOLVE                                              
+FINISH   
+
+/post1
+
+set,1,1
+
+elemN=5  !关心的单元编号
+
+Ns=1  !节点数
+*dim,SEN,array,Ns  !Ns个节点编号,stiff energy node
+
+*GET,SEN(1) ,elem,elemN,sene
+
+*mwrite,SEN,d:\sen_result,txt,,jik,1,Ns  !1行Ns列
+(1e20.4)
