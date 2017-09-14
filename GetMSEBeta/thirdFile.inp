@@ -1,15 +1,4 @@
-
-finish
-/clear
-/config,nres,2000000
-/prep7
-
-rndNum=1
-
-
 p=2500                     !密度
-
-dFactor=0.9+rndNum*0.1    !损伤系数
 
 E0=3.45E10
 E1=dFactor*E0               !损伤后刚度 -10%
@@ -109,7 +98,7 @@ nCol=1
 *dim,SEN,array,nElems  !nElems个单元,stiff energy
 
 *do,i,1,nElems,1
-	*GET,SEN(i) ,elem,nElems,sene
+	*GET,SEN(i) ,elem,i,sene
 *enddo
 
 *mwrite,SEN,d:\sen_result,txt,,jik,nElems,cCol  !nElems行nCol列
