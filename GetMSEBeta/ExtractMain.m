@@ -75,7 +75,7 @@ xlswrite(xlsFileName,mseDama,sheetNo,xlRange)
 
 
 div=repmat(mseNoDama,1,loopCount);  %除数扩展
-betaResult=abs(mseDama-div)./div;
+betaResult=(mseDama-div)./div;
 sheetNo = 2;    %第2个标签存储"各单元各损伤工况模态应变能变化率"
 xlRange = 'B2';
 xlswrite(xlsFileName,betaResult,sheetNo,xlRange)

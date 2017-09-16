@@ -1,17 +1,23 @@
+!
+!程序背景：中南大学硕士学位论文 单元模态应变能灵敏度及其在结构损伤识别中的应用 颜王吉 5.2数值模拟算例
+!
 
 finish
 /clear
 /config,nres,2000000
 /prep7
-dFactor=0.7
+
+dFactor=1.0    !损伤系数
+
+
 p=2500                     !密度
 
-E0=3.45E10
+E0=3.20E10
 E1=dFactor*E0               !损伤后刚度 -10%
 
 nElems=15   !单元数目
 
-span=6
+span=6	!跨径
 
 !--------------------------
 !梁单元截面性质
@@ -30,21 +36,21 @@ rNoDama=3   !损伤单元实常数
 rDama=5   !无损单元实常数
 
 !主梁截面属性（无损）
-et,nEtNoDama,beam3
+et,nEtNoDama,beam4
 mp,ex,nEtNoDama,E0                   !弹模
 mp,nuxy,nEtNoDama,0.3               !泊松比
 mp,dens,nEtNoDama,p                    !密度
-!mp,damp,nEtNoDama,0.02
-r,	rNoDama,	A,I,	bRec   !面积，刚度
+mp,damp,nEtNoDama,0.02
+r,	rNoDama,	A,I,	1   !面积，刚度
 
 
 !主梁截面属性（损伤）
-et,nEtDama,beam3
+et,nEtDama,beam4
 mp,ex,nEtDama,E1                   !弹模
 mp,nuxy,nEtDama,0.3
 mp,dens,nEtDama,p                    !密度
-!mp,damp,nEtDama,0.02
-r,	rDama,	A,I	,	bRec   !面积，刚度
+mp,damp,nEtDama,0.02
+r,	rDama,	A,I	,	1   !面积，刚度
 
 !建立节点
 !主梁节点
@@ -75,30 +81,18 @@ real,nEtNoDama
 *do,i,(nElems+1)/2+1,nElems
 en,i,i,i+1
 *enddo
-             
 
-/SOLU
+d,1,all 
+d,nElems+1,all 
+finish
 
-D, 1, UX, 0,,,,UY,
-D,nElems+1,,,,,,UY                                                                
-ANTYPE,2                                                                              
-MODOPT,lanb,20,,,,1                         
-MXPAND,20, , ,yes
-lumpm,off                                                                                  
-SOLVE                                              
-FINISH   
 
-/post1
-set,list
-set,1,1
 
-nCol=1
+/OUTPUT,cp,out,, ! 将输出信息送到cp.out文件 
+/debug,-1,,,1 ! 指定输出单元矩阵 
 
-*dim,SEN,array,nElems  !nElems个单元,stiff energy
+/SOLU 
+SOLVE 
+finish 
 
-*do,i,1,nElems,1
-	*GET,SEN(i) ,elem,i,sene
-*enddo
-
-*mwrite,SEN,d:\sen_result,txt,,jik,nElems,cCol  !nElems行nCol列
-(15e20.4)
+/OUTPUT, TERM ! 将输出信息送到output windows中

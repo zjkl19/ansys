@@ -1,20 +1,23 @@
+!
+!程序背景：中南大学硕士学位论文 单元模态应变能灵敏度及其在结构损伤识别中的应用 颜王吉 5.2数值模拟算例
+!
 
 finish
 /clear
 /config,nres,2000000
 /prep7
 
-rndNum=1
+dFactor=1.0    !损伤系数
 
 
 p=2500                     !密度
 
-dFactor=0.9+rndNum*0.05    !损伤系数
-
-E0=3.45E10
+E0=3.20E10
 E1=dFactor*E0               !损伤后刚度 -10%
 
-nElems=101   !单元数目
+nElems=15   !单元数目
+
+span=6	!跨径
 
 !--------------------------
 !梁单元截面性质
@@ -52,7 +55,7 @@ r,	rDama,	A,I	,	1   !面积，刚度
 !建立节点
 !主梁节点
 *do,i,1,nElems+1
-	n,i,(i-1)
+	n,i,(span/nElems)*(i-1)
 *enddo
 
 !建立主梁单元
@@ -86,31 +89,10 @@ finish
 
 
 !模态分析             
-/SOLU                 
-pstres,on             
-acel,,9.8             
-solve               
-finish  
-
-/SOLU                                                                
-ANTYPE,2    
-pstres,on                                                                           
-MODOPT,lanb,20,,,,1                         
-MXPAND,20, , ,yes                                                                                 
-SOLVE                                              
-FINISH   
-
-/post1
-
-set,1,1
-
-nCol=1
-
-*dim,SEN,array,nElems  !nElems个单元,stiff energy
-
-*do,i,1,nElems,1
-	*GET,SEN(i) ,elem,i,sene
-*enddo
-
-*mwrite,SEN,d:\sen_result,txt,,jik,nElems,cCol  !nElems行nCol列
-(101e20.4)
+/solu   
+antype,7 !substructuring分析类型   
+seopt,matname,1 !设置文件名称和刚度矩阵类型(刚度，质量，阻尼等)   
+nsel,all !选择所有节点   
+m,all,all !定义所有节点自由度为主自由度   
+solve !求解   
+selist,matname,3 !列出整体刚度矩阵
