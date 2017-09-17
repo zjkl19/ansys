@@ -3,7 +3,7 @@ p=2500                     !密度
 E0=3.45E10
 E1=dFactor*E0               !损伤后刚度 -10%
 
-nElems=15   !单元数目
+nElems=101   !单元数目
 
 span=6
 
@@ -84,7 +84,7 @@ FINISH
 
 /post1
 set,list
-set,1,1
+set,1,3
 
 nCol=1
 
@@ -94,5 +94,5 @@ nCol=1
 	*GET,SEN(i) ,elem,i,sene
 *enddo
 
-*mwrite,SEN,d:\sen_result,txt,,jik,nElems,cCol  !nElems行nCol列
-(15e20.4)
+*mwrite,SEN,d:\sen_result,txt,,jik,nCol,nElems  !nElems行nCol列
+(101e20.4)

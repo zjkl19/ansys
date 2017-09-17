@@ -66,18 +66,53 @@ while i<=loopCount
     i=i+1;
 end
 
-xlsFileName = 'mseResult.xlsx';
-sheetNo = 1;    %第1个标签存储"各单元[无损模态应变能 各损伤工况模态应变能]"
-xlRange = 'B2';
-xlswrite(xlsFileName,mseNoDama,sheetNo,xlRange)
-xlRange = 'C2';
-xlswrite(xlsFileName,mseDama,sheetNo,xlRange)
+nElems=size(mseDama,1);     %单元个数
 
+xlsFileName = 'mseResult.xlsx';
+
+sheetHeader={'id','seneNoDama'};
+for i=1:loopCount
+    sheetHeader{i+2}=damaFactor(i);
+end
+
+lst(1:nElems,1)=1:nElems;   %列表
+
+%sheetNo = 1;    %存储"各单元[无损模态应变能 各损伤工况模态应变能]"
+
+interStr=num2str(damaFactor(1:end));
+while strfind(interStr,'  ')
+    interStr = strrep(interStr,'  ',' ');
+end
+interStr=strrep(interStr,' ','-');
+
+sheetName=[num2str(nElems) '_', interStr , '_sene'];
+
+xlRange = 'A1';
+xlswrite(xlsFileName,sheetHeader,sheetName,xlRange)
+xlRange = 'A2';
+xlswrite(xlsFileName,lst,sheetName,xlRange)
+xlRange = 'B2';
+xlswrite(xlsFileName,mseNoDama,sheetName,xlRange)
+xlRange = 'C2';
+xlswrite(xlsFileName,mseDama,sheetName,xlRange)
+
+%-------------------
+sheetHeader={'id'};
+for i=1:loopCount
+    sheetHeader{i+1}=damaFactor(i);
+end
 
 div=repmat(mseNoDama,1,loopCount);  %除数扩展
 betaResult=(mseDama-div)./div;
-sheetNo = 2;    %第2个标签存储"各单元各损伤工况模态应变能变化率"
+sheetNo = 2;    %存储"各单元各损伤工况模态应变能变化率"
+
+sheetName=[num2str(nElems) '_', interStr , '_beta'];
+
+xlRange = 'A1';
+xlswrite(xlsFileName,sheetHeader,sheetName,xlRange)
+xlRange = 'A2';
+xlswrite(xlsFileName,lst,sheetName,xlRange)
 xlRange = 'B2';
-xlswrite(xlsFileName,betaResult,sheetNo,xlRange)
+xlswrite(xlsFileName,betaResult,sheetName,xlRange)
 
 toc;
