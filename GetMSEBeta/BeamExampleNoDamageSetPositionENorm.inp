@@ -1,0 +1,119 @@
+!损伤后的弹性模量服从正太分布
+
+finish
+/clear
+/config,nres,2000000
+/prep7
+
+nElems=101   !单元数目
+
+*dim,dFactor,array,3  !3个损伤系数
+dFactor(1)=1.0
+dFactor(2)=0.9
+dFactor(3)=1.0
+
+*dim,dElem,array,3  !3个损伤单元编号
+dElem(1)=1
+dElem(2)=51
+dElem(3)=101
+
+*dim,elemDama,array,3  !3个损伤单元材料编号
+elemDama(1)=2
+elemDama(2)=3
+elemDama(3)=4
+
+*dim,rDama,array,3  !3个损伤单元实常数编号
+rDama(1)=elemDama(1)
+rDama(2)=elemDama(2)
+rDama(3)=elemDama(3)
+
+
+
+p=2500                     !密度
+
+E0=3.45E10
+
+span=6    !跨径
+
+!--------------------------
+!梁单元截面性质
+bRec=0.25
+hRec=0.2
+A=bRec*hRec
+I=(1/12)*bRec*hRec**3
+
+!--------------------------
+
+
+nEtNoDama=1		!无损单元单元号
+
+rNoDama=1   !无损单元实常数
+
+!主梁单元属性
+et,nEtNoDama,beam3
+mp,ex,nEtNoDama,E0                   !弹模
+mp,nuxy,nEtNoDama,0.3               !泊松比
+mp,dens,nEtNoDama,p                    !密度
+!mp,damp,nEtNoDama,0.02
+r,	rNoDama,	A,I,	hRec   !面积，刚度
+
+*do,i,1,3
+  et,elemDama(i),beam3
+  mp,ex,elemDama(i),E0*dFactor(i)                   !弹模
+  mp,nuxy,elemDama(i),0.3               !泊松比
+  mp,dens,elemDama(i),p                    !密度
+	r,	rDama(i),	A,I,hRec   !面积，刚度
+*enddo
+
+!建立节点
+!主梁节点
+*do,i,1,nElems+1
+	n,i,(span/nElems)*(i-1)
+*enddo
+
+!建立主梁单元
+type,nEtNoDama
+mat,nEtNoDama  
+real,rNoDama 
+*do,i,1,nElems
+	en,i,i,i+1
+*enddo
+
+*do,i,1,3
+esel,s,elem,,dElem(i)
+EMODIF,all,MAT,elemDama(i) !修改所选单元的材料属性
+*enddo
+
+
+D, 1, UX, 0,,,,UY,
+D,nElems+1,,,,,,UY
+
+
+!模态分析               
+allsel,all
+/SOLU                                                                
+ANTYPE,2                                                                               
+MODOPT,lanb,20,,,,1                         
+MXPAND,20, , ,yes
+lumpm,off                                                                                
+SOLVE                                              
+FINISH   
+
+/post1
+set,list
+set,1,1
+
+nCol=1
+
+*dim,SEN,array,nElems  !nElems个单元,stiff energy
+
+*do,i,1,nElems,1
+	*GET,SEN(i) ,elem,i,sene
+*enddo
+
+*mwrite,SEN,d:\sen_result,txt,,jik,nCol,nElems  !nElems行nCol列
+(101e20.4)
+
+!setFreq=1
+!set,1,setFreq
+!presol,sene,,1

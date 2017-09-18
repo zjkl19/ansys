@@ -3,7 +3,7 @@ finish
 /clear
 /config,nres,2000000
 /prep7
-dFactor=0.7
+dFactor=0.90233
 p=2500                     !√‹∂»
 
 E0=3.45E10

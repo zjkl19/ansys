@@ -6,6 +6,13 @@ fixOption=0;    %是否修正损伤指标柱状图
 barXlabel='单元编号';   %x轴名称
 barYlabel='损伤指标';   %y轴名称
 
+tickFontName='Times New Roman';
+tickFontSize=12;
+xlabelFontName='仿宋';
+ylabelFontName='仿宋';
+xlabelFontSize=12;
+ylabelFontSize=12;
+
 beta=[-0.008012558
 -0.007878911
 -0.007670954
@@ -123,6 +130,23 @@ for i=1:size(beta,1)
     xTickLabel{i}=num2str(i);
 end
 
-set(gca,'XTickLabel',xTickLabel); %设置x轴所代表大时间
-xlabel(barXlabel),ylabel(barYlabel); %设置x轴和y轴的名称
+xTickScaleLimit=30;
+if size(beta,1)>xTickScaleLimit
+    for i=2:size(beta,1)
+        if mod(i-1,10)~=0
+            xTickLabel{i}=' ';
+        end
+    end
+end
+
+xlim([0 size(beta,1)]);    
+xTick=1:size(beta,1);
+set(gca,'ticklength',[0 0]);    %设置x,y轴的刻度长度为0
+set(gca,'FontName',tickFontName,'xtick',xTick,'XTickLabel',xTickLabel,'FontSize',tickFontSize); %设置x轴所代表大时间
+
+xlabel(barXlabel,'FontName',xlabelFontName,'FontSize',xlabelFontSize); %设置x轴和y轴的名称
+ylabel(barYlabel,'FontName',ylabelFontName,'FontSize',ylabelFontSize); 
+
 legend(legendTitle); %区分一下蓝色和红色分别代表什么
+legend('hide');
+%legend('show');
