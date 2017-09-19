@@ -3,7 +3,7 @@ finish
 /clear
 /config,nres,2000000
 /prep7
-dF=0.89965
+dF=0.88482
 nElems=101   !单元数目
 
 *dim,dFactor,array,3  !3个损伤系数

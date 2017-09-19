@@ -9,6 +9,8 @@ clear;clc;
 MU=0.9; 
 SIGMA=MU*0.01;
 
+xlsFileName = 'mseResult.xlsx';
+
 firstFileName='firstFile.inp';      %第1个拼接文件
 secondFileName='secondFile.inp';
 thirdFileName='thirdFile.inp';
@@ -30,7 +32,7 @@ mseNoDama=mseData;    %无损工况各单元单元应变能
 
 inputFile='BeamExampleDamageCombine.inp';   %ansys cmd 中输入文件
 
-loopCount=10;   %模拟次数
+loopCount=1000;   %模拟次数
 mseDama=[];  %损伤后各单元模态应变能
 i=1;
 while i<=loopCount
@@ -52,13 +54,16 @@ while i<=loopCount
     Data2=fread(fid2);
     Data3=fread(fid3);
     
-    fid=fopen(inputFile,'w');
+    fid=fopen(inputFile,'w');   %合并写入的文件
+    
     fwrite(fid,Data1);
     fwrite(fid,Data2);
     fwrite(fid,Data3);
     fclose(fid1);
     fclose(fid2);
     fclose(fid3);
+    
+    fclose(fid);
     
     cmdStr=[ansysPath ' -b -p ane3fl -i ' inputFile ' -o ' outputFile];
     
@@ -75,7 +80,7 @@ end
 
 nElems=size(mseDama,1);     %单元个数
 
-xlsFileName = 'mseResult.xlsx';
+
 
 sheetHeader={'id','seneNoDama'};
 for i=1:loopCount

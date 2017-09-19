@@ -5,7 +5,7 @@
 tic;
 clear;clc;
 
-damaFactor=[0.05 0.10 0.20 0.30];   %损伤因子系数
+damaFactor=[0.01 0.02 0.03 0.04 0.05 0.06 0.07 0.08 0.09 0.10];   %损伤因子系数
 
 firstFileName='firstFile.inp';      %第1个拼接文件
 secondFileName='secondFile.inp';
@@ -53,6 +53,8 @@ while i<=loopCount
     fclose(fid2);
     fclose(fid3);
     
+    fclose(fid);
+    
     cmdStr=[ansysPath ' -b -p ane3fl -i ' inputFile ' -o ' outputFile];
     
     system(cmdStr);
@@ -85,7 +87,7 @@ while strfind(interStr,'  ')
 end
 interStr=strrep(interStr,' ','-');
 
-sheetName=[num2str(nElems) '_', interStr , '_sene'];
+sheetName=[num2str(nElems) ,'_' , '_sene'];
 
 xlRange = 'A1';
 xlswrite(xlsFileName,sheetHeader,sheetName,xlRange)
@@ -106,7 +108,7 @@ div=repmat(mseNoDama,1,loopCount);  %除数扩展
 betaResult=(mseDama-div)./div;
 sheetNo = 2;    %存储"各单元各损伤工况模态应变能变化率"
 
-sheetName=[num2str(nElems) '_', interStr , '_beta'];
+sheetName=[num2str(nElems) '_' 'beta'];
 
 xlRange = 'A1';
 xlswrite(xlsFileName,sheetHeader,sheetName,xlRange)
