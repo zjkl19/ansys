@@ -5,9 +5,16 @@
 tic;
 clear;clc;
 
+controlOption=[1 1 0];  %随机控制选项
+                        %举例：[0 0 1]表示第1、2个单元不进行随机控制，第3个单元进行随机控制
+
 %损伤单元弹性模量的损伤系数服从N(MU,SIGMA)
-MU=0.9; 
-SIGMA=MU*0.01;
+%MU=0.9; 
+%SIGMA=MU*0.01;
+
+%controlOption==0对应项不予考虑
+MU=[0.95 0.9 0.97]; 
+SIGMA=[MU(1)*0.01 MU(2)*0.01 MU(3)*0.01];
 
 xlsFileName = 'mseResult.xlsx';
 
@@ -34,14 +41,26 @@ inputFile='BeamExampleDamageCombine.inp';   %ansys cmd 中输入文件
 
 loopCount=10;   %模拟次数
 mseDama=[];  %损伤后各单元模态应变能
+midFileStr=[];  %中间文件字符串
 i=1;
 while i<=loopCount
     R = normrnd(MU,SIGMA);    %损伤系数,0.9左右
     %防止随机数中出现R<0的情况
+    %必须每个都>=0
     while R<0
         R = normrnd(MU,SIGMA);
     end
-    midFileStr=['dF=' num2str(R)];     %第2个文件的内容
+    
+    for j=1:size(MU,2)
+        if controlOption(j)==0
+            R(j)=1;
+        end
+    end
+    
+    midFileStr=[];
+    for j=1:size(MU,2)
+        midFileStr=[midFileStr 'dFactor(' num2str(j) ')=' num2str(R(j)) char(13,10)'];     %第2个文件的内容
+    end
     
     fid=fopen(secondFileName,'w');
     fprintf(fid,'%s\n',midFileStr);
@@ -79,8 +98,6 @@ while i<=loopCount
 end
 
 nElems=size(mseDama,1);     %单元个数
-
-
 
 sheetHeader={'id','seneNoDama'};
 for i=1:loopCount

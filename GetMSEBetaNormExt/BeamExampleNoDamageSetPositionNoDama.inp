@@ -1,20 +1,21 @@
+!损伤后的弹性模量服从正太分布
 
 finish
 /clear
 /config,nres,2000000
 /prep7
-dF=0.91275
+
 nElems=101   !单元数目
 
 *dim,dFactor,array,3  !3个损伤系数
 dFactor(1)=1.0
-dFactor(2)=dF
+dFactor(2)=1.0
 dFactor(3)=1.0
 
 *dim,dElem,array,3  !3个损伤单元编号
 dElem(1)=1
-dElem(2)=51
-dElem(3)=101
+dElem(2)=26
+dElem(3)=51
 
 *dim,elemDama,array,3  !3个损伤单元材料编号
 elemDama(1)=2
@@ -25,6 +26,8 @@ elemDama(3)=4
 rDama(1)=elemDama(1)
 rDama(2)=elemDama(2)
 rDama(3)=elemDama(3)
+
+
 
 p=2500                     !密度
 

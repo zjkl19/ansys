@@ -111,7 +111,7 @@ nCol=1
 	*GET,SEN(i) ,elem,i,sene
 *enddo
 
-*mwrite,SEN,d:\sen_result,txt,,jik,nCol,nElems  !nElems行nCol列
+*mwrite,SEN,e:\sen_result,txt,,jik,nCol,nElems  !nElems行nCol列
 (101e20.4)
 
 !setFreq=1

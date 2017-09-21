@@ -3,30 +3,6 @@ finish
 /prep7              
 /NERR,,99999999     
 
-dF=0.90     !损伤系数
-nElems=101   !单元数目
-
-*dim,dFactor,array,3  !3个损伤系数
-dFactor(1)=1.0
-dFactor(2)=dF
-dFactor(3)=1.0
-
-*dim,dElem,array,3  !3个损伤单元编号
-dElem(1)=1070019
-dElem(2)=1058025
-dElem(3)=1008025
-
-*dim,elemDama,array,3  !3个损伤单元材料编号
-elemDama(1)=1001       !注意材料编号不重复
-elemDama(2)=1002
-elemDama(3)=1002
-
-*dim,rDama,array,3  !3个损伤单元实常数编号
-rDama(1)=elemDama(1)
-rDama(2)=elemDama(2)
-rDama(3)=elemDama(3)
-
-
 !-------------定义修正参数（trial_num×7）,trial_num为需要试验的次数
 trial_num=1
 !-----------------定义结果文件
