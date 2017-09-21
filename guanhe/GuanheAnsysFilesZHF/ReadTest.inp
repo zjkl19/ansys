@@ -1,0 +1,3 @@
+readPath='E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF'
+*DIM,H1234mid,table,161,2,,
+*TREAD,H1234mid,'H1234mid','txt',%readPath%,0

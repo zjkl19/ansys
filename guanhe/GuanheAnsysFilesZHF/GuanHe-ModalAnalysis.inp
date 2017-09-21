@@ -28,7 +28,7 @@ ET,2,SOLID45
 mp,ex,2,t2                                                                  
 mp,dens,2,t3                                                                  
 mp,prxy,2,0.2
-!斜拉锁
+!斜拉索
 ET,3,LINK8       
 mp,ex,3,1.95E+11                                                                  
 mp,dens,3,7800                                                                 
@@ -78,13 +78,13 @@ R,300,544.56 !二期分摊到桥面板节点上(24*0.1*34+2*15)    105.8KN*637.9*1000/433*4
 !---------------------------------------------------------------------断面节点
 !基本节点
 *DIM,SectionNode,table,274,3,,
-*TREAD,SectionNode,'SectionNode','txt','D:\GuanheAnsysFiles',0
+*TREAD,SectionNode,'SectionNode','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,274,1
   n,SectionNode(i,1),SectionNode(i,2),SectionNode(i,3),0 
 *enddo
 !小纵梁节点
 *DIM,SmallBeamNode,table,12,3,,
-*TREAD,SmallBeamNode,'SmallBeamNode','txt','D:\GuanheAnsysFiles',0
+*TREAD,SmallBeamNode,'SmallBeamNode','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,12,1
   ngen,2,SmallBeamNode(i,1),SmallBeamNode(i,2),,,SmallBeamNode(i,3)
 *enddo
@@ -94,14 +94,14 @@ cm,set1,node
 allsel
 !标准节点纵向复制
 *DIM,Nodecopy1,table,421,3,,
-*TREAD,Nodecopy1,'Nodecopy1','txt','D:\GuanheAnsysFiles',0
+*TREAD,Nodecopy1,'Nodecopy1','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,421,1
 ngen,2,Nodecopy1(i,1),set1,,,,Nodecopy1(i,2) ,Nodecopy1(i,3)  
 *enddo
 
 !---------------------------端部加强段
 *DIM,SectionNode2,table,37,3,,
-*TREAD,SectionNode2,'SectionNode2','txt','D:\GuanheAnsysFiles',0
+*TREAD,SectionNode2,'SectionNode2','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,37                                                                                                                                     
 n,SectionNode2(i,1),SectionNode2(i,2),SectionNode2(i,3),0                                                         
 *enddo
@@ -113,7 +113,7 @@ ngen,2,8000,set6,,,0,-2.002,-141.4
 ngen,2,430000,set6,,,0,-2.008,481.4
 
 *DIM,SectionNode3,table,37,3,,
-*TREAD,SectionNode3,'SectionNode3','txt','D:\GuanheAnsysFiles',0
+*TREAD,SectionNode3,'SectionNode3','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,37                                                                                                                                     
 n,SectionNode3(i,1),SectionNode3(i,2),SectionNode3(i,3),0                                                         
 *enddo
@@ -122,7 +122,7 @@ nsel,s,node,,1,1000
 cm,set7,node
 allsel
 *DIM,Nodecopy4,table,10,3,,
-*TREAD,Nodecopy4,'Nodecopy4','txt','D:\GuanheAnsysFiles',0
+*TREAD,Nodecopy4,'Nodecopy4','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,10                                                                                                                                     
 ngen,2,Nodecopy4(i,1),set7,,,,Nodecopy4(i,2),Nodecopy4(i,3)                                                         
 *enddo
@@ -536,7 +536,7 @@ cm,set4,node
 allsel
 !纵向复制
 *DIM,Nodecopy2,table,145,3,,
-*TREAD,Nodecopy2,'Nodecopy2','txt','D:\GuanheAnsysFiles',0
+*TREAD,Nodecopy2,'Nodecopy2','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,145,1
   ngen,2,Nodecopy2(i,1),set4,,,,Nodecopy2(i,2),Nodecopy2(i,3)
 *enddo
@@ -545,7 +545,7 @@ TYPE,1
 MAT,1										                                          									                                        
 REAL,2
 *DIM,H1H2top,table,143,2,,
-*TREAD,H1H2top,'H1H2top','txt','D:\GuanheAnsysFiles',0
+*TREAD,H1H2top,'H1H2top','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,143 
 *do,j,7,34                                                                                                                                      
 en,H1H2top(i,1)+26+j,H1H2top(i,1)+j,H1H2top(i,1)+j+250,H1H2top(i,1)+j+1+250,H1H2top(i,1)+j+1
@@ -558,7 +558,7 @@ TYPE,1
 MAT,1										                                          									                                        
 REAL,9
 *DIM,H1H2down,table,143,2,,
-*TREAD,H1H2down,'H1H2down','txt','D:\GuanheAnsysFiles',0
+*TREAD,H1H2down,'H1H2down','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,143 
 *do,j,607,634                                                                                                                                      
 en,H1H2down(i,1)+j-518,H1H2down(i,1)+j,H1H2down(i,1)+j+250,H1H2down(i,1)+j+1+250,H1H2down(i,1)+j+1
@@ -602,7 +602,7 @@ cm,set5,node
 allsel
 !纵向复制
 *DIM,Nodecopy3,table,16,3,,
-*TREAD,Nodecopy3,'Nodecopy3','txt','D:\GuanheAnsysFiles',0
+*TREAD,Nodecopy3,'Nodecopy3','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,16,1
   ngen,2,Nodecopy3(i,1),set5,,,,Nodecopy3(i,2),Nodecopy3(i,3)
 *enddo
@@ -611,7 +611,7 @@ TYPE,1
 MAT,1										                                          									                                        
 REAL,7
 *DIM,H4top,table,16,2,,
-*TREAD,H4top,'H4top','txt','D:\GuanheAnsysFiles',0
+*TREAD,H4top,'H4top','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,16 
 *do,j,7,34                                                                                                                                      
 en,H4top(i,1)+26+j,H4top(i,1)+j,H4top(i,1)+j+250,H4top(i,1)+j+1+250,H4top(i,1)+j+1
@@ -623,7 +623,7 @@ TYPE,1
 MAT,1										                                          									                                        
 REAL,8
 *DIM,H4down,table,16,2,,
-*TREAD,H4down,'H4down','txt','D:\GuanheAnsysFiles',0
+*TREAD,H4down,'H4down','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,16 
 *do,j,607,634                                                                                                                                      
 en,H4down(i,1)+j-518,H4down(i,1)+j,H4down(i,1)+j+250,H4down(i,1)+j+1+250,H4down(i,1)+j+1
@@ -637,7 +637,7 @@ TYPE,1
 MAT,1										                                          									                                        
 REAL,6
 *DIM,H1234mid,table,161,2,,
-*TREAD,H1234mid,'H1234mid','txt','D:\GuanheAnsysFiles',0
+*TREAD,H1234mid,'H1234mid','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,161 
 *do,j,7,34 
 *do,k,1,6                                                                                                                                     
@@ -673,7 +673,7 @@ cm,set7,node
 allsel
 !纵向复制
 *DIM,Nodecopy5,table,4,3,,
-*TREAD,Nodecopy5,'Nodecopy5','txt','D:\GuanheAnsysFiles',0
+*TREAD,Nodecopy5,'Nodecopy5','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,4,1
   ngen,2,Nodecopy5(i,1),set7,,,,Nodecopy5(i,2),Nodecopy5(i,3)
 *enddo
@@ -682,7 +682,7 @@ TYPE,1
 MAT,1										                                          									                                        
 REAL,7
 *DIM,H7top,table,4,2,,
-*TREAD,H7top,'H7top','txt','D:\GuanheAnsysFiles',0
+*TREAD,H7top,'H7top','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,4 
 *do,j,7,34                                                                                                                                      
 en,H7top(i,1)+26+j,H7top(i,1)+j,H7top(i,1)+j+250,H7top(i,1)+j+1+250,H7top(i,1)+j+1
@@ -694,7 +694,7 @@ TYPE,1
 MAT,1										                                          									                                        
 REAL,9
 *DIM,H7down,table,4,2,,
-*TREAD,H7down,'H7down','txt','D:\GuanheAnsysFiles',0
+*TREAD,H7down,'H7down','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,4 
 *do,j,907,934                                                                                                                                      
 en,H7down(i,1)+j-518,H7down(i,1)+j,H7down(i,1)+j-50,H7down(i,1)+j+1-50,H7down(i,1)+j+1
@@ -718,7 +718,7 @@ cm,set8,node
 allsel
 !纵向复制
 *DIM,Nodecopy6,table,2,3,,
-*TREAD,Nodecopy6,'Nodecopy6','txt','D:\GuanheAnsysFiles',0
+*TREAD,Nodecopy6,'Nodecopy6','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,2,1
   ngen,2,Nodecopy6(i,1),set8,,,,Nodecopy6(i,2),Nodecopy6(i,3)
 *enddo
@@ -727,7 +727,7 @@ TYPE,1
 MAT,1										                                          									                                        
 REAL,9
 *DIM,H5top,table,2,2,,
-*TREAD,H5top,'H5top','txt','D:\GuanheAnsysFiles',0
+*TREAD,H5top,'H5top','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,2 
 *do,j,7,34                                                                                                                                      
 en,H5top(i,1)+26+j,H5top(i,1)+j,H5top(i,1)+j+250,H5top(i,1)+j+1+250,H5top(i,1)+j+1
@@ -739,7 +739,7 @@ TYPE,1
 MAT,1										                                          									                                        
 REAL,8
 *DIM,H5down,table,2,2,,
-*TREAD,H5down,'H5down','txt','D:\GuanheAnsysFiles',0
+*TREAD,H5down,'H5down','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,2 
 *do,j,907,934                                                                                                                                      
 en,H5down(i,1)+j-518,H5down(i,1)+j,H5down(i,1)+j-50,H5down(i,1)+j+1-50,H5down(i,1)+j+1
@@ -752,7 +752,7 @@ TYPE,1
 MAT,1										                                          									                                        
 REAL,10
 *DIM,H57mid,table,6,2,,
-*TREAD,H57mid,'H57mid','txt','D:\GuanheAnsysFiles',0
+*TREAD,H57mid,'H57mid','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,6 
 *do,j,7,34 
 *do,k,1,6                                                                                                                                     
@@ -830,7 +830,7 @@ en,i+615,i+27,i+127,i+1000+127,i+1000+27
 !---------------------------------------------------------------------压重区小纵梁
 !--------------北边跨
 *DIM,BearBeamUp,table,12,2,,
-*TREAD,BearBeamUp,'BearBeamUp','txt','D:\GuanheAnsysFiles',0
+*TREAD,BearBeamUp,'BearBeamUp','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,12
 *do,j,4000,31000,1000
 ngen,2,-50,j+BearBeamUp(i,1),,,0.12
@@ -838,7 +838,7 @@ ngen,2,50,j+BearBeamUp(i,1),,,-0.12
 *enddo
 *enddo
 *DIM,BearBeamDown,table,12,2,,
-*TREAD,BearBeamDown,'BearBeamDown','txt','D:\GuanheAnsysFiles',0
+*TREAD,BearBeamDown,'BearBeamDown','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,12
 *do,j,4000,31000,1000
 ngen,2,50,j+BearBeamDown(i,1),,,0.12
@@ -916,7 +916,7 @@ en,i+800+j,i+j,i+j+1,i+700+j+1,i+700+j,i+1000+j,i+1000+j+1,i+1000+700+j+1,i+1000
 local,11,0,17,96.548,0
 csys,11
 *DIM,towersection1,table,24,3,,
-*TREAD,towersection1,'towersection1','txt','D:\GuanheAnsysFiles',0
+*TREAD,towersection1,'towersection1','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,24
 n,440000+towersection1(i,1),towersection1(i,2),,towersection1(i,3)
 *enddo
@@ -926,7 +926,7 @@ cm,set9,node
 allsel
 
 *DIM,towersection1copy,table,17,2,,
-*TREAD,towersection1copy,'towersection1copy','txt','D:\GuanheAnsysFiles',0
+*TREAD,towersection1copy,'towersection1copy','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,17                                                                                                                                     
 ngen,2,100*i,set9,,,,towersection1copy(i,1),0                                                      
 *enddo
@@ -941,7 +941,7 @@ local,12,0,17,59.548,0
 csys,12
 
 *DIM,towersection2,table,24,3,,
-*TREAD,towersection2,'towersection2','txt','D:\GuanheAnsysFiles',0
+*TREAD,towersection2,'towersection2','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,24
 n,441800+towersection2(i,1),towersection2(i,2),,towersection2(i,3)
 *enddo
@@ -957,10 +957,10 @@ csys,0
 
 !-------section3
 *DIM,towersection3location,table,6,2,,
-*TREAD,towersection3location,'towersection3location','txt','D:\GuanheAnsysFiles',0
+*TREAD,towersection3location,'towersection3location','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 
 *DIM,towersection3,table,24,3,,
-*TREAD,towersection3,'towersection3','txt','D:\GuanheAnsysFiles',0
+*TREAD,towersection3,'towersection3','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 
 *do,k,1,6
 local,12+k,0,towersection3location(k,1),towersection3location(k,2),0
@@ -977,10 +977,10 @@ csys,0
 
 !------section4
 *DIM,towersection4location,table,3,2,,
-*TREAD,towersection4location,'towersection4location','txt','D:\GuanheAnsysFiles',0
+*TREAD,towersection4location,'towersection4location','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 
 *DIM,towersection4,table,24,3,,
-*TREAD,towersection4,'towersection4','txt','D:\GuanheAnsysFiles',0
+*TREAD,towersection4,'towersection4','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 
 *do,k,1,3
 local,19+k,0,towersection4location(k,1),towersection4location(k,2),0
@@ -997,7 +997,7 @@ csys,0
 
 !------section5
 *DIM,towersection5,table,24,3,,
-*TREAD,towersection5,'towersection5','txt','D:\GuanheAnsysFiles',0
+*TREAD,towersection5,'towersection5','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 local,23,0,20.09,-9.75,0
 csys,23
 *do,i,1,24
@@ -1006,7 +1006,7 @@ n,443300+towersection5(i,1),towersection5(i,2),,towersection5(i,3)
 csys,0
 !------section6
 *DIM,towersection6,table,24,3,,
-*TREAD,towersection6,'towersection6','txt','D:\GuanheAnsysFiles',0
+*TREAD,towersection6,'towersection6','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 local,24,0,19.75,-11.75,0
 csys,24
 *do,i,1,24
@@ -1015,7 +1015,7 @@ n,443400+towersection6(i,1),towersection6(i,2),,towersection6(i,3)
 csys,0
 !------section7
 *DIM,towersection7,table,24,3,,
-*TREAD,towersection7,'towersection7','txt','D:\GuanheAnsysFiles',0
+*TREAD,towersection7,'towersection7','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 local,25,0,18.6,-18.45,0
 csys,25
 *do,i,1,24
@@ -1024,7 +1024,7 @@ n,443500+towersection7(i,1),towersection7(i,2),,towersection7(i,3)
 csys,0
 !------section8
 *DIM,towersection8,table,25,3,,
-*TREAD,towersection8,'towersection8','txt','D:\GuanheAnsysFiles',0
+*TREAD,towersection8,'towersection8','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 local,26,0,18.25,-20.45,0
 csys,26
 *do,i,1,25
@@ -1033,7 +1033,7 @@ n,443600+towersection8(i,1),towersection8(i,2),,towersection8(i,3)
 csys,0
 !------section9
 *DIM,towersection9,table,13,3,,
-*TREAD,towersection9,'towersection9','txt','D:\GuanheAnsysFiles',0
+*TREAD,towersection9,'towersection9','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 local,27,0,17.8,-23.08,0
 csys,27
 *do,i,1,13
@@ -1092,7 +1092,7 @@ en,453600+12,453600+51,453600+62,453600+88,453700+51,453700+62,453700+88
 
 !-----------------------------------------------------------------------上横梁
 *DIM,towersection10,table,46,3,,
-*TREAD,towersection10,'towersection10','txt','D:\GuanheAnsysFiles',0
+*TREAD,towersection10,'towersection10','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 local,28,0,14.5,57.048,0
 csys,28
 *do,i,1,46
@@ -1108,20 +1108,20 @@ n,454000+towersection10(i,1),,towersection10(i,3),towersection10(i,2)
 csys,0
 
 *DIM,towerbeamconect1,table,20,8,,
-*TREAD,towerbeamconect1,'towerbeamconect1','txt','D:\GuanheAnsysFiles',0
+*TREAD,towerbeamconect1,'towerbeamconect1','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,20
 en,444000+i,towerbeamconect1(i,1),towerbeamconect1(i,2),towerbeamconect1(i,3),towerbeamconect1(i,4),towerbeamconect1(i,5),towerbeamconect1(i,6),towerbeamconect1(i,7),towerbeamconect1(i,8)
 *enddo
 
 *DIM,towerbeamconect2,table,20,8,,
-*TREAD,towerbeamconect2,'towerbeamconect2','txt','D:\GuanheAnsysFiles',0
+*TREAD,towerbeamconect2,'towerbeamconect2','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,20
 en,454000+i,towerbeamconect2(i,1),towerbeamconect2(i,2),towerbeamconect2(i,3),towerbeamconect2(i,4),towerbeamconect2(i,5),towerbeamconect2(i,6),towerbeamconect2(i,7),towerbeamconect2(i,8)
 *enddo
 
 !section11
 *DIM,towersection11,table,36,3,,
-*TREAD,towersection11,'towersection11','txt','D:\GuanheAnsysFiles',0
+*TREAD,towersection11,'towersection11','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 local,30,0,0,57.048,0
 csys,30
 *do,i,1,36
@@ -1143,7 +1143,7 @@ en,474018,454000+1,454000+51,454000+68,454000+18,464000+1,464000+51,464000+68,46
 
 !-----------------------------------------------------------------------下横梁
 *DIM,towersection12,table,27,3,,
-*TREAD,towersection12,'towersection12','txt','D:\GuanheAnsysFiles',0
+*TREAD,towersection12,'towersection12','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 local,31,0,17,-7.252,0
 csys,31
 *do,i,1,27
@@ -1159,20 +1159,20 @@ n,455000+towersection12(i,1),,towersection12(i,3),towersection12(i,2)
 csys,0
 
 *DIM,towerbeamconect3,table,8,8,,
-*TREAD,towerbeamconect3,'towerbeamconect3','txt','D:\GuanheAnsysFiles',0
+*TREAD,towerbeamconect3,'towerbeamconect3','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,8
 en,445000+i,towerbeamconect3(i,1),towerbeamconect3(i,2),towerbeamconect3(i,3),towerbeamconect3(i,4),towerbeamconect3(i,5),towerbeamconect3(i,6),towerbeamconect3(i,7),towerbeamconect3(i,8)
 *enddo
 
 *DIM,towerbeamconect4,table,8,8,,
-*TREAD,towerbeamconect4,'towerbeamconect4','txt','D:\GuanheAnsysFiles',0
+*TREAD,towerbeamconect4,'towerbeamconect4','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,8
 en,455000+i,towerbeamconect4(i,1),towerbeamconect4(i,2),towerbeamconect4(i,3),towerbeamconect4(i,4),towerbeamconect4(i,5),towerbeamconect4(i,6),towerbeamconect4(i,7),towerbeamconect4(i,8)
 *enddo
 
 !section13
 *DIM,towersection13,table,24,3,,
-*TREAD,towersection13,'towersection13','txt','D:\GuanheAnsysFiles',0
+*TREAD,towersection13,'towersection13','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 local,33,0,0,-7.252,0
 csys,33
 *do,i,1,24
@@ -1228,7 +1228,7 @@ egen,2,100000,440000,476000,,,,,,,0,-0.002,340
 
 !--------------------------------------------------------------------------------------------------------斜拉索
 *DIM,LinkReal,table,156,5,,
-*TREAD,LinkReal,'LinkReal','txt','D:\GuanheAnsysFiles',0
+*TREAD,LinkReal,'LinkReal','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 *do,i,1,156
 R,LinkReal(i,1),LinkReal(i,2),LinkReal(i,3)
 *enddo
@@ -1245,7 +1245,7 @@ TYPE,2
 MAT,2
 
 *DIM,piersection,table,9,2,,
-*TREAD,piersection,'piersection','txt','D:\GuanheAnsysFiles',0
+*TREAD,piersection,'piersection','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 local,34,0,17,-5.911,-115.4
 csys,34
 *do,i,1,9
@@ -1302,7 +1302,7 @@ egen,2,3000,505000,505104,,,,,,,-34,0,636.6
 !---------------------------------------------------------------------------------------------压重/additional weights
 TYPE,7
 *DIM,mass,table,96,2,,
-*TREAD,mass,'mass','txt','D:\GuanheAnsysFiles',0
+*TREAD,mass,'mass','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 
 *do,i,1,96
 REAL,mass(i,1)
@@ -1322,7 +1322,7 @@ eplot
 
 !---------------------------------------------------------------------------------------------拼接板、拉索下锚点、检修便道
 !*DIM,massplus,table,77967,2,,
-!*TREAD,massplus,'massplus','txt','D:\GuanheAnsysFiles',0
+!*TREAD,massplus,'massplus','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZHF',0
 !TYPE,7
 !REAL,200
 !*do,i,1,77967
