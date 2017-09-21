@@ -1,0 +1,9 @@
+/post1
+set,1,1
+
+esel,s,elem,,1070019  !115.4m跨跨中桥面系中部单元
+esel,a,elem,,1058025  !桥塔处桥面系中部单元
+esel,a,elem,,1008025  !中跨跨中桥面系中部单元
+
+
+presol,sene,,1
