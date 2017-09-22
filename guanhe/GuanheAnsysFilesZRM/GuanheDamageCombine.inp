@@ -1,0 +1,217 @@
+/clear
+/config,nres,2000000
+/prep7
+
+nElems=101   !单元数目
+
+*dim,dFactor,array,nElems  !损伤系数
+
+*do,i,1,nElems
+    dFactor(i)=1.0
+*enddo
+
+dFactor(1)=0.99134
+dFactor(2)=1.0018
+dFactor(3)=1.0127
+dFactor(4)=0.99749
+dFactor(5)=0.99795
+dFactor(6)=0.97798
+dFactor(7)=0.99225
+dFactor(8)=0.98607
+dFactor(9)=0.99614
+dFactor(10)=1.0053
+dFactor(11)=1.0152
+dFactor(12)=1.018
+dFactor(13)=0.99883
+dFactor(14)=0.9968
+dFactor(15)=1.0082
+dFactor(16)=1.0049
+dFactor(17)=1.0077
+dFactor(18)=1.0078
+dFactor(19)=0.9852
+dFactor(20)=1.0054
+dFactor(21)=0.99908
+dFactor(22)=0.9924
+dFactor(23)=0.99306
+dFactor(24)=1.0128
+dFactor(25)=0.9919
+dFactor(26)=0.98763
+dFactor(27)=1.0021
+dFactor(28)=1.0201
+dFactor(29)=1.0003
+dFactor(30)=1.0031
+dFactor(31)=0.99062
+dFactor(32)=1.0167
+dFactor(33)=1.0012
+dFactor(34)=1.0053
+dFactor(35)=0.99048
+dFactor(36)=1.0085
+dFactor(37)=1.0039
+dFactor(38)=0.98844
+dFactor(39)=1.0004
+dFactor(40)=0.99549
+dFactor(41)=1.0011
+dFactor(42)=0.99749
+dFactor(43)=0.9981
+dFactor(44)=0.98967
+dFactor(45)=0.99677
+dFactor(46)=1.0077
+dFactor(47)=1.0174
+dFactor(48)=0.98839
+dFactor(49)=1.0238
+dFactor(50)=1.0153
+dFactor(51)=0.9516
+dFactor(52)=0.99699
+dFactor(53)=0.99301
+dFactor(54)=1.0083
+dFactor(55)=0.99305
+dFactor(56)=0.99538
+dFactor(57)=1.0088
+dFactor(58)=1.0044
+dFactor(59)=1.009
+dFactor(60)=1.005
+dFactor(61)=0.99599
+dFactor(62)=0.99486
+dFactor(63)=1.008
+dFactor(64)=0.99329
+dFactor(65)=1.0119
+dFactor(66)=1.0079
+dFactor(67)=1.0029
+dFactor(68)=1
+dFactor(69)=1.0037
+dFactor(70)=1.0353
+dFactor(71)=0.99888
+dFactor(72)=0.98443
+dFactor(73)=1.0192
+dFactor(74)=1.0061
+dFactor(75)=0.99352
+dFactor(76)=1.0262
+dFactor(77)=1.0055
+dFactor(78)=1.0029
+dFactor(79)=0.99222
+dFactor(80)=0.98935
+dFactor(81)=0.98232
+dFactor(82)=0.99577
+dFactor(83)=0.98947
+dFactor(84)=1.0065
+dFactor(85)=0.99682
+dFactor(86)=1.0177
+dFactor(87)=1.0151
+dFactor(88)=1.0016
+dFactor(89)=0.99717
+dFactor(90)=1.0115
+dFactor(91)=0.98853
+dFactor(92)=1.0067
+dFactor(93)=0.99331
+dFactor(94)=0.996
+dFactor(95)=0.99328
+dFactor(96)=1.0058
+dFactor(97)=0.99222
+dFactor(98)=0.98936
+dFactor(99)=1.0055
+dFactor(100)=0.99577
+dFactor(101)=1.0036
+
+*dim,dElem,array,nElems  !损伤单元编号
+
+*do,i,1,nElems
+    dElem(i)=i
+*enddo
+
+*dim,elemDama,array,nElems  !损伤单元材料编号
+*do,i,1,nElems
+    elemDama(i)=i+1
+*enddo
+
+*dim,rDama,array,nElems  !3个损伤单元实常数编号
+*do,i,1,nElems
+    rDama(i)=elemDama(i)
+*enddo
+
+p=2500                     !密度
+
+E0=3.45E10
+
+span=6    !跨径
+
+!--------------------------
+!梁单元截面性质
+bRec=0.25
+hRec=0.2
+A=bRec*hRec
+I=(1/12)*bRec*hRec**3
+
+!--------------------------
+
+nEtNoDama=1		!无损单元单元号
+
+rNoDama=1   !无损单元实常数
+
+!主梁单元属性
+et,nEtNoDama,beam3
+mp,ex,nEtNoDama,E0                   !弹模
+mp,nuxy,nEtNoDama,0.3               !泊松比
+mp,dens,nEtNoDama,p                    !密度
+!mp,damp,nEtNoDama,0.02
+r,	rNoDama,	A,I,	hRec   !面积，刚度
+
+*do,i,1,nElems
+  et,elemDama(i),beam3
+  mp,ex,elemDama(i),E0*dFactor(i)                   !弹模
+  mp,nuxy,elemDama(i),0.3               !泊松比
+  mp,dens,elemDama(i),p                    !密度
+	r,	rDama(i),	A,I,hRec   !面积，刚度
+*enddo
+
+!建立节点
+!主梁节点
+*do,i,1,nElems+1
+	n,i,(span/nElems)*(i-1)
+*enddo
+
+!建立主梁单元
+type,nEtNoDama
+mat,nEtNoDama  
+real,rNoDama 
+*do,i,1,nElems
+	en,i,i,i+1
+*enddo
+
+*do,i,1,nElems
+esel,s,elem,,dElem(i)
+EMODIF,all,MAT,elemDama(i) !修改所选单元的材料属性
+*enddo
+
+
+D, 1, UX, 0,,,,UY,
+D,nElems+1,,,,,,UY
+
+
+!模态分析               
+allsel,all
+/SOLU                                                                
+ANTYPE,2                                                                               
+MODOPT,lanb,20,,,,1                         
+MXPAND,20, , ,yes
+lumpm,off                                                                                
+SOLVE                                              
+FINISH   
+
+/post1
+set,list
+set,1,1
+
+nCol=1
+
+*dim,SEN,array,nElems  !nElems个单元,stiff energy
+
+*do,i,1,nElems,1
+	*GET,SEN(i) ,elem,i,sene
+*enddo
+
+*mwrite,SEN,e:\sen_result,txt,,jik,nCol,nElems  !nElems行nCol列
+(101e20.4)
+
+!setFreq=1
+!set,1,setFreq
+!presol,sene,,1

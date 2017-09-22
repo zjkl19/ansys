@@ -7,8 +7,9 @@ clear;clc;
 
 loopCount=10;   %循环模拟次数
 
+ne=101; %单元数
 
-controlOption=[0 0 1];  %随机控制选项
+controlOption=ones(1,ne);  %随机控制选项
                         %举例：[0 0 1]表示第1、2个单元不进行随机控制，第3个单元进行随机控制
 
 %损伤单元弹性模量的损伤系数服从N(MU,SIGMA)
@@ -16,8 +17,10 @@ controlOption=[0 0 1];  %随机控制选项
 %SIGMA=MU*0.01;
 
 %controlOption==0对应项不予考虑
-MU=[1 1 0.9];
-SIGMA=MU*0.01;
+MU=ones(1,ne);
+SIGMA=ones(1,ne)*0.01;
+
+MU(1,51)=0.95; SIGMA(1,51)=MU(1,51)*0.01;
 
 xlsFileName = 'mseResult.xlsx';
 
@@ -28,7 +31,7 @@ thirdFileName='thirdFile.inp';
 sourcePath='e:\sen_result.txt'; %ansys计算结果存储文件路径
 ansysPath='C:\progra~1\ANSYSI~1\v160\ansys\bin\winx64\ansys160.exe';    %ansys安装路径
 
-inputFile='GuanheNoDama.inp';   %ansys cmd 中输入文件（无损结构）
+inputFile='BeamExampleNoDamageSetPositionNoDama.inp';   %ansys cmd 中输入文件（无损结构）
 outputFile='e:\ansysOutput.txt';    %ansys cmd中输出文件
 
 %----------------------------------------------
@@ -39,7 +42,7 @@ mseData=load(sourcePath);     %读取数据
 mseNoDama=mseData;    %无损工况各单元单元应变能
 %----------------------------------------------
 
-inputFile='GuanheDamageCombine.inp';   %ansys cmd 中输入文件（组合文件）
+inputFile='BeamExampleDamageCombine.inp';   %ansys cmd 中输入文件（组合文件）
 
 mseDama=[];  %损伤后各单元模态应变能
 midFileStr=[];  %中间文件字符串

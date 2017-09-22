@@ -4,10 +4,10 @@ finish
 /NERR,,99999999     
 
 *dim,dFactor,array,3  !3个损伤系数
-dFactor(1)=1.0
-dFactor(2)=1.0
-dFactor(3)=1.0
 
+dFactor(1)=1
+dFactor(2)=1
+dFactor(3)=1
 
 *dim,dElem,array,3  !3个损伤单元编号
 dElem(1)=1070019
@@ -5255,5 +5255,31 @@ set,list
 
 *enddo
 
+!提取频率
 *mwrite,FQ,E:\lindinan\ansys\guanhe\f_result_test,txt,,jik,20,trial_num  !1行20列
 (20e20.4) 
+
+!林迪南定义的后处理
+/post1
+
+set,1,1
+
+nCol=1
+
+nElems=3
+*dim,SEN,array,nElems  !nElems个单元,stiff energy
+
+!esel,s,elem,,1070019  !115.4m跨跨中桥面系中部单元
+!esel,a,elem,,1058025  !桥塔处桥面系中部单元
+!esel,a,elem,,1008025  !中跨跨中桥面系中部单元
+
+!*do,i,1,nElems,1
+!	*GET,SEN(i) ,elem,i,sene
+!*enddo
+
+*GET,SEN(1) ,elem,1070019,sene
+*GET,SEN(2) ,elem,1058025,sene
+*GET,SEN(3) ,elem,1008025,sene
+
+*mwrite,SEN,e:\sen_result,txt,,jik,nCol,nElems  !nElems行nCol列
+(3e20.4)

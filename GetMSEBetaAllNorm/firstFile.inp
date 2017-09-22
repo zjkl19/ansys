@@ -1,0 +1,12 @@
+/clear
+/config,nres,2000000
+/prep7
+
+nElems=101   !单元数目
+
+*dim,dFactor,array,nElems  !损伤系数
+
+*do,i,1,nElems
+    dFactor(i)=1.0
+*enddo
+
