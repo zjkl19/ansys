@@ -5258,17 +5258,17 @@ nCol=1
 nElems=3
 *dim,SEN,array,nElems  !nElems个单元,stiff energy
 
-!esel,s,elem,,1070019  !115.4m跨跨中桥面系中部单元
-!esel,a,elem,,1058025  !桥塔处桥面系中部单元
-!esel,a,elem,,1008025  !中跨跨中桥面系中部单元
+esel,s,elem,,1070019  !115.4m跨跨中桥面系中部单元
+esel,a,elem,,1058025  !桥塔处桥面系中部单元
+esel,a,elem,,1008025  !中跨跨中桥面系中部单元
 
 !*do,i,1,nElems,1
 !	*GET,SEN(i) ,elem,i,sene
 !*enddo
 
-*GET,SEN(1) ,elem,1070019,sene
-*GET,SEN(2) ,elem,1058025,sene
-*GET,SEN(3) ,elem,1008025,sene
+*GET,SEN(1) ,elem,dElem(1),sene
+*GET,SEN(2) ,elem,dElem(2),sene
+*GET,SEN(3) ,elem,dElem(3),sene
 
 *mwrite,SEN,e:\sen_result,txt,,jik,nCol,nElems  !nElems行nCol列
 (3e20.4)
