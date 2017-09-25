@@ -2,7 +2,7 @@
 /config,nres,2000000
 /prep7
 
-nElems=101   !单元数目
+nElems=178
 
-*dim,dFactor,array,3  !3个损伤系数
+*dim,dFactor,array,nElems  !损伤系数
 

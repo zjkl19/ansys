@@ -1,0 +1,16 @@
+
+*dim,eselArray,array,178
+
+*do,i,1,178
+    eselArray(i)=920025+(i-1)*1000  
+*enddo
+
+
+esel,s,elem,,eselArray(1)
+
+*do,i,2,178
+    esel,a,elem,,eselArray(i) 
+*enddo 
+
+eplot 
+ 

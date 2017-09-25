@@ -12,14 +12,18 @@ import os
 #数组使用参考：
 #http://blog.csdn.net/taoyanqi8932/article/details/52703686
 
-loopCount=10    #循环模拟次数
+loopCount=2    #循环模拟次数
 
-controlOption=np.array([0,0,1])  #随机控制选项
+nElems=178    #输出单元
+controlOption=np.zeros((nElems)) 
+#controlOption=np.array([0,0,1])  #随机控制选项
                         #举例：[0 0 1]表示第1、2个单元不进行随机控制，第3个单元进行随机控制
+controlOption[88]=1
 
 #controlOption==0对应项不予考虑
-MU=np.array([1,1,0.9])
-
+MU=np.ones((nElems))
+MU[88]=0.90
+#MU=np.array([1,1,0.9])
 SIGMA=MU*0.01
 
 xlsFileName = 'mseResult.xlsx'
@@ -58,15 +62,15 @@ while i<=loopCount:
     #while R<0:
     #    R=multiply(SIGMA,np.random.randn(1, MU.shape[0])) + MU    #损伤系数;MU.shape[0]:MU列数
     
-    for j in range(len(R[0])-1):
+    for j in range(0,len(R[0])):
         if controlOption[j]==0:
              R[0,j]=1
 
     midFileStr=[]
     
     midFileStr=''
-    for j in range(1,len(R[0])+1):
-        midFileStr=midFileStr+'dFactor('+str(j)+')='+str(R[0,j-1])+chr(13)+chr(10)
+    for j in range(0,len(R[0])):
+        midFileStr=midFileStr+'dFactor('+str(j+1)+')='+str(R[0,j])+chr(13)+chr(10)
                 
     
     with open(secondFileName, 'w') as f:
