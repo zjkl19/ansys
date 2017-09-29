@@ -1,0 +1,10 @@
+/clear
+/config,nres,2000000
+/prep7
+
+nrows=36    !节点行数
+ncols=178    !节点列数
+nElems=nrows*ncols   !单元数
+
+*dim,dFactor,array,nElems  !损伤系数
+

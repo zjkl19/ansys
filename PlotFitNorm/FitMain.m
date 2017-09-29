@@ -8,8 +8,6 @@ xlRange='A1:A466';
 beta=xlsread(xlsFileName,sheetNo,xlRange);
 
 sheetNo = 1;
-
-
 %-----------------------------区间估计------------------------------------------
 
 alpha=0.05; %1-alpha:置信度
@@ -68,4 +66,7 @@ for i=1:size(xi,2)
 end
 s = trapz(x_,y_);
 disp(['重合度:' num2str(s)]);
+
+disp(['离散beta值变异系数：' num2str(std(beta)./mean(beta))]); 
+disp(['拟合后的概率密度函数变异系数：' num2str(sigmahat./muhat)]);
 

@@ -1,0 +1,50 @@
+RESUME, originalFile,db
+
+dFactor(10)=0.9
+damaIndex=10
+
+/prep7
+
+!--------------------------------林迪南添加----------------------------
+et,elemDama(damaIndex),SOLID45
+mp,ex,elemDama(damaIndex),t6(1,1)*dFactor(damaIndex)            !弹模
+!-----------------------------------------------------------------------
+
+esel,s,elem,,dElem(damaIndex)
+EMODIF,all,MAT,elemDama(damaIndex) !修改所选单元的材料属性
+
+allsel
+
+NM=20 !模态识别阶数
+/SOLU      
+allsel,all,all                                                          
+ANTYPE,2    
+!pstres,on   
+acel,,9.8                                                                            
+MODOPT,lanb,NM,,,,1                         
+MXPAND,NM, , ,yes                                                                                 
+SOLVE                                              
+FINISH 
+
+
+
+!林迪南定义的后处理
+/post1
+
+set,1,1
+
+nCol=1
+
+！*dim,SEN,array,nElems  !nElems个单元,stiff energy
+
+!esel,s,elem,,1070019  !115.4m跨跨中桥面系中部单元
+!esel,a,elem,,1058025  !桥塔处桥面系中部单元
+!esel,a,elem,,1008025  !中跨跨中桥面系中部单元
+
+*dim,SEN,array,nElems  !nElems个单元,stiff energy
+*do,i,1,nElems,1
+	*GET,SEN(i) ,elem,dElem(i),sene
+*enddo
+*mwrite,SEN,e:\sen_result,txt,,jik,nCol,nElems  !nElems行nCol列
+(6408e20.4)
+

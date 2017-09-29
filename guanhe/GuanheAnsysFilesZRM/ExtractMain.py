@@ -24,7 +24,7 @@ controlOption[88]=1
 MU=np.ones((nElems))
 MU[88]=0.90
 #MU=np.array([1,1,0.9])
-SIGMA=MU*0.01
+SIGMA=MU*0.01 
 
 xlsFileName = 'mseResult.xlsx'
 

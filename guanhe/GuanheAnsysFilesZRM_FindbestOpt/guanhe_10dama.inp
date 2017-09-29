@@ -1,0 +1,44 @@
+!该文件需配合xyhxiuzheng.inp文件使用
+!MU[88]=0.90
+!dFactor(89)=0.90
+
+/prep7
+
+dFactor(89)=0.90
+
+!--------------------------------林迪南添加----------------------------
+*do,i,1,nElems
+  et,elemDama(i),SOLID45
+  mp,ex,elemDama(i),t6(1,1)*dFactor(i)                   !弹模
+  mp,dens,elemDama(i),t1(1,1)                    !密度
+  mp,prxy,elemDama(i),0.2               !泊松比 
+*enddo
+!-----------------------------------------------------------------------
+
+
+*do,j,1,nElems
+    esel,s,elem,,dElem(j)
+    EMODIF,all,MAT,elemDama(j) !修改所选单元的材料属性
+*enddo
+
+
+allsel
+
+
+NM=20 !模态识别阶数
+/SOLU      
+allsel,all,all                                                          
+ANTYPE,2    
+!pstres,on   
+acel,,9.8                                                                            
+MODOPT,lanb,NM,,,,1                         
+MXPAND,NM, , ,yes                                                                                 
+SOLVE                                              
+FINISH 
+
+/post1
+set,1,11    !竖向1阶
+
+myEsel=1008025
+esel,s,elem,,myEsel
+presol,sene
