@@ -11,6 +11,9 @@ nElems=178
     dFactor(i)=1
 *enddo
 
+!测试代码
+!dFactor(89)=0.9
+
 *dim,dElem,array,nElems  !损伤单元编号
 *do,i,1,nElems
     dElem(i)=920025+(i-1)*1000
@@ -40,7 +43,7 @@ trial_num=1
 
 !-------------定义参数矩阵
 *DIM,ParVector,table,trial_num,7     
-*TREAD,ParVector,'ParVector','txt','F:\niujie\GuanheAnsysFilesZRM',0
+*TREAD,ParVector,'ParVector','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZRM',0
 *DIM,t1,array,trial_num,2 
 *DIM,t2,array,trial_num,2 
 *DIM,t3,array,trial_num,2  
@@ -5259,7 +5262,7 @@ set,list
 *enddo
 
 !提取频率
-*mwrite,FQ,F:\niujie\GuanheAnsysFilesZRM\f_result_test,txt,,jik,20,trial_num  !1行20列
+*mwrite,FQ,E:\lindinan\ansys\guanhe\GuanheAnsysFilesZRM\f_result_test,txt,,jik,20,trial_num  !1行20列
 (20e20.4) 
 
 !林迪南定义的后处理

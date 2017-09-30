@@ -1,0 +1,7 @@
+/post1
+set,1,5    !竖向1阶
+
+myEsel=86048   !选择的单元
+
+esel,s,elem,,myEsel
+presol,sene

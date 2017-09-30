@@ -1,0 +1,29 @@
+!该文件需配合GuanHe-ModalAnalysis.inp文件使用
+
+!损伤后混凝土桥面板                   
+ET,20,SOLID45       
+mp,ex,2,t2*0.9                                                                  
+mp,dens,2,t3                                                                  
+mp,prxy,2,0.2
+
+myType=20
+myEsel=219819   !选择的单元
+
+esel,s,elem,,myEsel
+EMODIF,all,MAT,myType !修改所选单元的材料属性
+
+allsel
+
+!模态求解
+/SOLU                           
+ANTYPE,2                                              
+MODOPT,lanb,20,,,,1             
+MXPAND,20, , ,yes               
+outres,all,all                  
+SOLVE                           
+FINISH 
+
+/post1
+set,list
+set,1,1
+pldisp,0

@@ -1,0 +1,1078 @@
+
+ ANSYS Multiphysics                                
+
+ *** WARNING ***                         CP =       0.655   TIME= 09:52:36
+ The requested number of shared-memory processors (8) exceeds the number 
+ of physical processors that are available (4).  As the use of virtual   
+ processors is not recommended, the number of processors used will be    
+ 4.                                                                      
+
+
+ *------------------------------------------------------------------*
+ |                                                                  |
+ |   W E L C O M E   T O   T H E   A N S Y S (R)  P R O G R A M     |
+ |                                                                  |
+ *------------------------------------------------------------------*
+
+
+
+
+ ***************************************************************
+ *            ANSYS Release 16.0     LEGAL NOTICES             *
+ ***************************************************************
+ *                                                             *
+ * Copyright 2014 SAS IP, Inc.  All rights reserved.           *
+ * Unauthorized use, distribution or duplication is            *
+ * prohibited.                                                 *
+ *                                                             *
+ * Ansys is a registered trademark of ANSYS, Inc. or its       *
+ * subsidiaries in the United States or other countries.       *
+ * See the ANSYS, Inc. online documentation or the ANSYS, Inc. *
+ * documentation CD or online help for the complete Legal      *
+ * Notice.                                                     *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * THIS ANSYS SOFTWARE PRODUCT AND PROGRAM DOCUMENTATION       *
+ * INCLUDE TRADE SECRETS AND CONFIDENTIAL AND PROPRIETARY      *
+ * PRODUCTS OF ANSYS, INC., ITS SUBSIDIARIES, OR LICENSORS.    *
+ * The software products and documentation are furnished by    *
+ * ANSYS, Inc. or its subsidiaries under a software license    *
+ * agreement that contains provisions concerning               *
+ * non-disclosure, copying, length and nature of use,          *
+ * compliance with exporting laws, warranties, disclaimers,    *
+ * limitations of liability, and remedies, and other           *
+ * provisions.  The software products and documentation may be *
+ * used, disclosed, transferred, or copied only in accordance  *
+ * with the terms and conditions of that software license      *
+ * agreement.                                                  *
+ *                                                             *
+ * ANSYS, Inc. is a UL registered                              *
+ * ISO 9001:2008 company.                                      *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * This product is subject to U.S. laws governing export and   *
+ * re-export.                                                  *
+ *                                                             *
+ * For U.S. Government users, except as specifically granted   *
+ * by the ANSYS, Inc. software license agreement, the use,     *
+ * duplication, or disclosure by the United States Government  *
+ * is subject to restrictions stated in the ANSYS, Inc.        *
+ * software license agreement and FAR 12.212 (for non-DOD      *
+ * licenses).                                                  *
+ *                                                             *
+ ***************************************************************
+
+ Release 16.0
+     
+ Point Releases and Patches installed:   
+     
+ ANSYS, Inc. Products Release 16.0   
+ ANSYS Mechanical Products Release 16.0  
+ ANSYS Autodyn Release 16.0  
+ ANSYS LS-DYNA Release 16.0  
+ ANSYS AIM Release 16.0  
+ ANSYS CFX (includes ANSYS CFD-Post) Release 16.0
+ ANSYS Fluent (includes ANSYS CFD-Post) Release 16.0 
+ ANSYS TurboGrid Release 16.0
+ ANSYS Polyflow (includes ANSYS CFD-Post) Release 16.0   
+ ANSYS ICEM CFD Release 16.0 
+ ANSYS Aqwa Release 16.0 
+ ANSYS Composite PrepPost Release 16.0   
+ ANSYS Icepak (includes ANSYS CFD-Post) Release 16.0 
+ Catia, Version 6 Release 16.0   
+ ANSYS, Inc. License Manager Release 16.0
+
+
+          *****  ANSYS COMMAND LINE ARGUMENTS  *****
+  BATCH MODE REQUESTED (-b)    = LIST
+  INPUT FILE COPY MODE (-c)    = COPY
+  SHARED MEMORY PARALLEL REQUESTED
+    SINGLE PROCESS WITH   4 THREADS REQUESTED
+    TOTAL OF     4 CORES REQUESTED
+  GRAPHICAL ENTRY              = YES   
+
+ RELEASE= Release 16.0         BUILD= 16.0      UP20141203   VERSION=WINDOWS x64 
+ CURRENT JOBNAME=file  09:52:36  SEP 30, 2017 CP=      0.702
+
+     1  RESUME, originalFile,db 
+     2      
+     3  dFactor(2)=0.9 
+     4  damaIndex=2
+     5      
+     6  /prep7  
+     7      
+     8  !--------------------------------林迪南添加---------------------------- 
+     9  et,elemDama(damaIndex),SOLID45  
+    10  mp,ex,elemDama(damaIndex),t6(1,1)*dFactor(damaIndex)            !弹模   
+    11  !-----------------------------------------------------------------------
+    12      
+    13  esel,s,elem,,dElem(damaIndex)   
+    14  EMODIF,all,MAT,elemDama(damaIndex) !修改所选单元的材料属性  
+    15      
+    16  allsel  
+    17      
+    18  NM=20 !模态识别阶数 
+    19  /SOLU   
+    20  allsel,all,all  
+    21  ANTYPE,2
+    22  !pstres,on  
+    23  acel,,9.8   
+    24  MODOPT,lanb,NM,,,,1 
+    25  MXPAND,NM, , ,yes   
+    26  SOLVE   
+    27  FINISH  
+    28      
+    29      
+    30      
+    31  !林迪南定义的后处理 
+    32  /post1  
+    33      
+    34  set,1,1 
+    35      
+    36  nCol=1  
+    37      
+    38  ！*dim,SEN,array,nElems  !nElems个单元,stiff energy 
+    39      
+    40  !esel,s,elem,,1070019  !115.4m跨跨中桥面系中部单元  
+    41  !esel,a,elem,,1058025  !桥塔处桥面系中部单元
+    42  !esel,a,elem,,1008025  !中跨跨中桥面系中部单元  
+    43      
+    44  *dim,SEN,array,nElems  !nElems个单元,stiff energy   
+    45  *do,i,1,nElems,1
+    46  	*GET,SEN(i) ,elem,dElem(i),sene
+    47  *enddo  
+    48  *mwrite,SEN,sen_result,txt,,jik,nCol,nElems  !nElems行nCol列
+    49  (6408e20.4) 
+    50      
+
+ RUN SETUP PROCEDURE FROM FILE= C:\Program Files\ANSYS Inc\v160\ANSYS\apdl\start160.ans
+
+ *** WARNING ***                         CP =       0.749   TIME= 09:52:36
+ The requested number of shared-memory processors (8) cannot be greater  
+ than that specified by the ANSYS command line option -NP (4).           
+  The number of processors used will be left at 4.                       
+
+ /INPUT FILE= C:\Program Files\ANSYS Inc\v160\ANSYS\apdl\start160.ans  LINE=       0
+
+ RESUME ANSYS DATA FROM FILE NAME=originalFile.db                                                                                                                                                                                                                                                     
+
+ *** ANSYS GLOBAL STATUS *** 
+
+ TITLE =                                                                       
+ ANALYSIS TYPE =  MODAL                
+ NUMBER OF ELEMENT TYPES =   6417
+     46252 ELEMENTS CURRENTLY SELECTED.  MAX ELEMENT NUMBER =     8200178
+    132981 NODES CURRENTLY SELECTED.     MAX NODE NUMBER =        1000871
+         8 COMPONENTS CURRENTLY DEFINED
+ MAXIMUM LINEAR PROPERTY NUMBER        =   62001
+ MAXIMUM REAL CONSTANT SET NUMBER      =   32001
+ ACTIVE COORDINATE SYSTEM              =       0  (CARTESIAN)  
+ NUMBER OF SPECIFIED CONSTRAINTS       =    1248
+ CURRENT LOAD CASE =      0 OF      0
+ LOAD SET   =       1
+ SUBSTEP    =       1
+ TIME/FREQ  =   0.37869    
+
+ INITIAL JOBNAME = file
+ CURRENT JOBNAME = file
+
+ *** NOTE ***                            CP =       1.123   TIME= 09:52:37
+ The model contains an element type ( COMBIN14 ) that operates entirely  
+ in the nodal coordinate system.  Viewing nodal displacements or forces  
+ in other than the nodal coordinate system may be invalid.  See the      
+ elements manual description for more information.                       
+
+ PARAMETER DFACTOR(2) =    0.9000000000    
+
+ PARAMETER DAMAINDEX =     2.000000000    
+
+ *** ANSYS - ENGINEERING ANALYSIS SYSTEM  RELEASE Release 16.0     16.0     ***
+ ANSYS Multiphysics                                
+ 00000000  VERSION=WINDOWS x64   09:52:37  SEP 30, 2017 CP=      1.295
+
+                                                                               
+
+
+
+          ***** ANSYS ANALYSIS DEFINITION (PREP7) *****
+
+ ELEMENT TYPE   2002 IS SOLID45      3-D STRUCTURAL SOLID        
+  KEYOPT( 1- 6)=        0      0      0        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  UX    UY    UZ    ROTX  ROTY  ROTZ
+  THREE-DIMENSIONAL MODEL
+
+ MATERIAL      2002     EX   =  0.3141000E+11      
+
+ SELECT       FOR ITEM=ELEM COMPONENT=    
+  IN RANGE    921005 TO     921005 STEP          1
+
+          1  ELEMENTS (OF      46252  DEFINED) SELECTED BY  ESEL  COMMAND.
+
+ MODIFY ALL SELECTED ELEMENTS TO HAVE  MAT  =   2002
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+ PARAMETER NM =     20.00000000    
+
+
+ ***** ROUTINE COMPLETED *****  CP =         1.342
+
+
+
+ *****  ANSYS SOLUTION ROUTINE  *****
+
+ SELECT ALL ENTITIES OF TYPE= ALL  AND BELOW
+
+
+ PERFORM A MODAL ANALYSIS
+  THIS WILL BE A NEW ANALYSIS
+
+ ACEL=    0.0000      9.8000      0.0000    
+
+
+ USE SYM. BLOCK LANCZOS MODE EXTRACTION METHOD
+  EXTRACT   20 MODES
+  NORMALIZE THE MODE SHAPES TO UNITY
+
+
+ NUMBER OF MODES TO EXPAND=    20
+  CALCULATE ELEMENT RESULTS AND NODAL DOF SOLUTION
+
+ *****  ANSYS SOLVE    COMMAND  *****
+
+ *** NOTE ***                            CP =       2.278   TIME= 09:52:37
+ There is no title defined for this analysis.                            
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910000 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910001 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910002 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910003 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910004 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910005 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910006 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910007 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910008 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910009 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910010 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910011 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910012 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910013 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910014 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910015 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910016 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910017 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910018 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910019 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910020 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910021 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910022 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910023 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910024 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910025 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910026 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910027 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910028 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910029 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910030 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910031 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910032 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910033 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910034 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910035 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910036 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910037 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910038 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910039 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910040 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910041 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910042 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910043 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910044 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910045 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910046 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910047 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910048 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910049 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910050 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910051 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910052 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910053 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910054 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910055 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910056 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910057 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910058 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910059 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910060 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910061 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910062 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910063 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910064 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910065 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910066 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910067 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910068 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910069 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910070 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910071 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910072 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910073 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910074 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910075 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910076 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910077 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910078 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910079 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910148 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910149 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910150 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910151 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910152 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910153 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910154 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910155 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910156 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910157 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910158 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910159 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910160 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910161 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910162 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910163 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910164 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910165 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910166 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910167 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910168 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910169 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910170 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.762   TIME= 09:52:46
+ Nodes I and J of element 910171 ( COMBIN14 ) are not coincident.        
+
+ *** WARNING ***                         CP =      11.825   TIME= 09:52:46
+ Previous testing revealed that 1732 of the 46252 selected elements      
+ violate shape warning limits.  To review warning messages, please see   
+ the output or error file, or issue the CHECK command.                   
+
+ *** NOTE ***                            CP =      11.825   TIME= 09:52:46
+ The model data was checked and warning messages were found.             
+  Please review output or errors file (                                  
+ E:\lindinan\ansys\guanhe\GuanheAnsysFilesZRM_FindbestOpt\file.err )     
+ for these warning messages.                                             
+
+ *** ANSYS - ENGINEERING ANALYSIS SYSTEM  RELEASE Release 16.0     16.0     ***
+ ANSYS Multiphysics                                
+ 00000000  VERSION=WINDOWS x64   09:52:46  SEP 30, 2017 CP=     11.950
+
+                                                                               
+
+
+
+                       S O L U T I O N   O P T I O N S
+
+   PROBLEM DIMENSIONALITY. . . . . . . . . . . . .3-D                  
+   DEGREES OF FREEDOM. . . . . . UX   UY   UZ   ROTX ROTY ROTZ
+   ANALYSIS TYPE . . . . . . . . . . . . . . . . .MODAL                
+      EXTRACTION METHOD. . . . . . . . . . . . . .BLOCK LANCZOS
+   NUMBER OF MODES TO EXTRACT. . . . . . . . . . .    20
+   NORMALIZE MODES TO UNITY. . . . . . . . . . . .YES
+   GLOBALLY ASSEMBLED MATRIX . . . . . . . . . . .SYMMETRIC  
+   NUMBER OF MODES TO EXPAND . . . . . . . . . . .    20
+   ELEMENT RESULTS CALCULATION . . . . . . . . . .ON 
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     1
+   INERTIA LOADS                        X           Y           Z 
+      ACEL . . . . . . . . . . . .  0.0000      9.8000      0.0000    
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS. . . . . . . . . . . .ALL DATA WRITTEN
+
+
+
+                         ***********  PRECISE MASS SUMMARY  ***********
+
+   TOTAL RIGID BODY MASS MATRIX ABOUT ORIGIN
+               Translational mass               |   Coupled translational/rotational mass
+        0.67891E+08    0.0000        0.0000     |     0.0000       0.11541E+11  -0.90092E+09
+         0.0000       0.67891E+08    0.0000     |   -0.11541E+11    0.0000       0.16863E-06
+         0.0000        0.0000       0.67891E+08 |    0.90092E+09  -0.16206E-06    0.0000    
+     ------------------------------------------ | ------------------------------------------
+                                                |         Rotational mass (inertia)
+                                                |    0.45508E+13  -0.15722E-05  -0.74654E-04
+                                                |   -0.10800E-05   0.44936E+13  -0.15316E+12
+                                                |   -0.74416E-04  -0.15316E+12   0.87449E+11
+
+   TOTAL MASS = 0.67891E+08
+     The mass principal axes coincide with the global Cartesian axes
+
+   CENTER OF MASS (X,Y,Z)=   0.24839E-14    13.270        170.00    
+
+   TOTAL INERTIA ABOUT CENTER OF MASS
+        0.25768E+13   0.57831E-06  -0.45987E-04
+        0.57831E-06   0.25316E+13  -0.17931E+07
+       -0.45987E-04  -0.17931E+07   0.75493E+11
+     The inertia principal axes coincide with the global Cartesian axes
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1  0.381495E+07
+     2  0.472166E+08
+     3  0.333652E+07
+     4  0.109330E+08
+    11  0.259020E+07
+
+ Range of element maximum matrix coefficients in global coordinates
+ Maximum = 1.E+13 at element 910047.                                     
+ Minimum = 1150000 at element 910171.                                    
+
+   *** ELEMENT MATRIX FORMULATION TIMES
+  TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+     1     19046  SHELL43       1.326   0.000070
+     2      9136  SOLID45       0.593   0.000065
+     3       160  LINK8         0.000   0.000000
+     4       622  MASS21        0.000   0.000000
+     8        32  COMBIN14      0.000   0.000000
+     9        40  COMBIN14      0.000   0.000000
+    10        32  COMBIN14      0.000   0.000000
+    11     17184  SHELL43       0.952   0.000055
+ Time at end of element matrix formulation CP = 19.7185268.              
+
+  BLOCK LANCZOS CALCULATION OF UP TO   20 EIGENVECTORS.
+  NUMBER OF EQUATIONS              =       275349
+  MAXIMUM WAVEFRONT                =          168
+  MAXIMUM MODES STORED             =           20
+  MINIMUM EIGENVALUE               =  0.00000E+00
+  MAXIMUM EIGENVALUE               =  0.10000E+31
+
+
+ *** NOTE ***                            CP =      22.152   TIME= 09:52:51
+ The initial memory allocation (-m) has been exceeded.                   
+  Supplemental memory allocations are being used.                        
+  Memory allocated for solver =        1026.806 MB
+  Memory required for in-core =         977.910 MB
+  Memory required for out-of-core =     330.697 MB
+
+
+ *** NOTE ***                            CP =      22.324   TIME= 09:52:51
+ The Block Lanczos solver is currently running in the in-core memory     
+ mode.  This memory mode uses the most amount of memory in order to      
+ avoid using the hard drive as much as possible, which most often        
+ results in the fastest solution time.  This mode is recommended if      
+ enough physical memory is present to accommodate all of the solver      
+ data.                                                                   
+
+  LANCZOS CYCLE NUMBER =   1
+
+     new shift:  1.5006D-03     modes still needed:       20
+
+  FREQUENCIES AT CURRENT LANCZOS CYCLE
+     1  0.37869170E+00     2  0.41671424E+00     3  0.49033779E+00
+     4  0.49709376E+00     5  0.55912441E+00     6  0.57021862E+00
+     7  0.59191945E+00     8  0.67638386E+00     9  0.74574728E+00
+    10  0.76697400E+00    11  0.87536145E+00    12  0.95075633E+00
+    13  0.10231998E+01    14  0.10486542E+01    15  0.10805677E+01
+    16  0.12080803E+01    17  0.12224506E+01    18  0.12225320E+01
+    19  0.12231734E+01    20  0.12744912E+01
+
+     number of steps      :     12
+     eigenvalues found    :     20
+     total no. eigenvalues:     20
+
+  LANCZOS CYCLE NUMBER =   2
+
+     new shift:  6.7501D+01     modes still needed:        0
+
+ *** ANSYS - ENGINEERING ANALYSIS SYSTEM  RELEASE Release 16.0     16.0     ***
+ ANSYS Multiphysics                                
+ 00000000  VERSION=WINDOWS x64   09:53:01  SEP 30, 2017 CP=     59.624
+
+                                                                               
+
+
+
+ *** FREQUENCIES FROM BLOCK LANCZOS ITERATION ***
+
+  MODE    FREQUENCY (HERTZ)      
+
+
+    1    0.3786917034455    
+    2    0.4167142395213    
+    3    0.4903377900967    
+    4    0.4970937583040    
+    5    0.5591244066001    
+    6    0.5702186224318    
+    7    0.5919194507322    
+    8    0.6763838632263    
+    9    0.7457472789726    
+   10    0.7669740048713    
+   11    0.8753614534042    
+   12    0.9507563334300    
+   13     1.023199785113    
+   14     1.048654196205    
+   15     1.080567736356    
+   16     1.208080308926    
+   17     1.222450607378    
+   18     1.222531952249    
+   19     1.223173425090    
+   20     1.274491179761    
+
+   *** ELEMENT RESULT CALCULATION TIMES
+  TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+     1     19046  SHELL43       5.101   0.000268
+     2      9136  SOLID45       0.827   0.000091
+     3       160  LINK8         0.000   0.000000
+     4       622  MASS21        0.062   0.000100
+     8        32  COMBIN14      0.000   0.000000
+     9        40  COMBIN14      0.000   0.000000
+    10        32  COMBIN14      0.000   0.000000
+    11     17184  SHELL43       3.994   0.000232
+
+   *** NODAL LOAD CALCULATION TIMES
+  TYPE    NUMBER   ENAME      TOTAL CP  AVE CP
+
+     1     19046  SHELL43       0.125   0.000007
+     2      9136  SOLID45       0.187   0.000020
+     3       160  LINK8         0.000   0.000000
+     4       622  MASS21        0.000   0.000000
+     8        32  COMBIN14      0.000   0.000000
+     9        40  COMBIN14      0.000   0.000000
+    10        32  COMBIN14      0.000   0.000000
+    11     17184  SHELL43       0.562   0.000033
+
+ *** ANSYS - ENGINEERING ANALYSIS SYSTEM  RELEASE Release 16.0     16.0     ***
+ ANSYS Multiphysics                                
+ 00000000  VERSION=WINDOWS x64   09:53:15  SEP 30, 2017 CP=    116.954
+
+                                                                               
+
+
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  X  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1    0.378692        2.6407       0.21077E-01    0.000004    0.444219E-03    0.867723E-11    0.654310E-11
+     2    0.416714        2.3997        1527.2        0.286108    0.233234E+07    0.455592E-01    0.343541E-01
+     3    0.490338        2.0394      -0.83501        0.000156    0.697238        0.455592E-01    0.102699E-07
+     4    0.497094        2.0117      -0.18673E-01    0.000003    0.348675E-03    0.455592E-01    0.513578E-11
+     5    0.559124        1.7885        5337.9        1.000000    0.284927E+08    0.602125        0.419681    
+     6    0.570219        1.7537       0.17510        0.000033    0.306584E-01    0.602125        0.451581E-09
+     7    0.591919        1.6894       -1547.6        0.289938    0.239520E+07    0.648913        0.352800E-01
+     8    0.676384        1.4785        4231.2        0.792678    0.179030E+08    0.998624        0.263701    
+     9    0.745747        1.3409       -2.6152        0.000490     6.83948        0.998624        0.100742E-06
+    10    0.766974        1.3038       0.14608E-02    0.000000    0.213397E-05    0.998624        0.314321E-13
+    11    0.875361        1.1424       0.16322E-01    0.000003    0.266400E-03    0.998624        0.392393E-11
+    12    0.950756        1.0518       0.22393E-01    0.000004    0.501430E-03    0.998624        0.738579E-11
+    13     1.02320       0.97733      -0.34833E-01    0.000007    0.121334E-02    0.998624        0.178718E-10
+    14     1.04865       0.95360       -168.69        0.031603     28456.4        0.999180        0.419147E-03
+    15     1.08057       0.92544      -0.16611E-01    0.000003    0.275910E-03    0.999180        0.406399E-11
+    16     1.20808       0.82776       0.30774E-01    0.000006    0.947031E-03    0.999180        0.139492E-10
+    17     1.22245       0.81803        0.0000        0.000000     0.00000        0.999180         0.00000    
+    18     1.22253       0.81797       0.21800E-02    0.000000    0.475259E-05    0.999180        0.700031E-13
+    19     1.22317       0.81755       0.33666E-01    0.000006    0.113341E-02    0.999180        0.166945E-10
+    20     1.27449       0.78463        204.88        0.038382     41974.0         1.00000        0.618253E-03
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                            0.511936E+08                    0.754054    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  Y  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1    0.378692        2.6407        2594.1        0.738094    0.672919E+07    0.311954        0.991173E-01
+     2    0.416714        2.3997      -0.16305E-01    0.000005    0.265864E-03    0.311954        0.391603E-11
+     3    0.490338        2.0394      -0.28143E-01    0.000008    0.792011E-03    0.311954        0.116659E-10
+     4    0.497094        2.0117       0.90763        0.000258    0.823796        0.311954        0.121340E-07
+     5    0.559124        1.7885      -0.67368E-02    0.000002    0.453845E-04    0.311954        0.668488E-12
+     6    0.570219        1.7537      -0.48460E-02    0.000001    0.234835E-04    0.311954        0.345899E-12
+     7    0.591919        1.6894       0.58458E-02    0.000002    0.341734E-04    0.311954        0.503355E-12
+     8    0.676384        1.4785      -0.35587E-01    0.000010    0.126642E-02    0.311954        0.186536E-10
+     9    0.745747        1.3409       0.12890E-02    0.000000    0.166160E-05    0.311954        0.244744E-13
+    10    0.766974        1.3038        22.030        0.006268     485.337        0.311976        0.714875E-05
+    11    0.875361        1.1424        4.1485        0.001180     17.2098        0.311977        0.253491E-06
+    12    0.950756        1.0518        3514.6        1.000000    0.123521E+08    0.884597        0.181939    
+    13     1.02320       0.97733        3.6571        0.001041     13.3742        0.884598        0.196995E-06
+    14     1.04865       0.95360       0.32950E-03    0.000000    0.108571E-06    0.884598        0.159919E-14
+    15     1.08057       0.92544      -0.77826E-01    0.000022    0.605693E-02    0.884598        0.892152E-10
+    16     1.20808       0.82776        1566.1        0.445612    0.245275E+07    0.998303        0.361277E-01
+    17     1.22245       0.81803       0.38100E-01    0.000011    0.145158E-02    0.998303        0.213809E-10
+    18     1.22253       0.81797        191.31        0.054433     36598.4         1.00000        0.539073E-03
+    19     1.22317       0.81755       0.46315E-01    0.000013    0.214504E-02     1.00000        0.315952E-10
+    20     1.27449       0.78463       0.11383E-01    0.000003    0.129582E-03     1.00000        0.190866E-11
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                            0.215711E+08                    0.317731    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****  Z  DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1    0.378692        2.6407      -0.54354        0.000094    0.295433        0.586735E-08    0.435157E-08
+     2    0.416714        2.3997      -0.83200E-03    0.000000    0.692224E-06    0.586737E-08    0.101961E-13
+     3    0.490338        2.0394      -0.10590        0.000018    0.112151E-01    0.609010E-08    0.165192E-09
+     4    0.497094        2.0117        1989.1        0.345478    0.395646E+07    0.785759E-01    0.582764E-01
+     5    0.559124        1.7885       0.63866E-02    0.000001    0.407891E-04    0.785759E-01    0.600801E-12
+     6    0.570219        1.7537       0.44913E-02    0.000001    0.201717E-04    0.785759E-01    0.297119E-12
+     7    0.591919        1.6894      -0.45656E-02    0.000001    0.208449E-04    0.785759E-01    0.307034E-12
+     8    0.676384        1.4785       0.28513E-01    0.000005    0.812986E-03    0.785759E-01    0.119748E-10
+     9    0.745747        1.3409      -0.17723E-02    0.000000    0.314100E-05    0.785759E-01    0.462652E-13
+    10    0.766974        1.3038        3.6953        0.000642     13.6552        0.785761E-01    0.201133E-06
+    11    0.875361        1.1424       -3618.9        0.628557    0.130965E+08    0.338675        0.192904    
+    12    0.950756        1.0518        4.5597        0.000792     20.7907        0.338675        0.306235E-06
+    13     1.02320       0.97733        387.55        0.067312     150193.        0.341658        0.221226E-02
+    14     1.04865       0.95360      -0.78272E-02    0.000001    0.612650E-04    0.341658        0.902399E-12
+    15     1.08057       0.92544        5757.5        1.000000    0.331487E+08    0.999997        0.488262    
+    16     1.20808       0.82776       0.91847E-01    0.000016    0.843594E-02    0.999997        0.124257E-09
+    17     1.22245       0.81803        11.512        0.002000     132.534         1.00000        0.195214E-05
+    18     1.22253       0.81797       0.20330E-01    0.000004    0.413323E-03     1.00000        0.608801E-11
+    19     1.22317       0.81755      -0.10044E-01    0.000002    0.100890E-03     1.00000        0.148605E-11
+    20     1.27449       0.78463      -0.15304E-01    0.000003    0.234226E-03     1.00000        0.345002E-11
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                            0.503520E+08                    0.741658    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTX DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1    0.378692        2.6407      -0.44101E+06    0.739594    0.194494E+12    0.168863        0.427383E-01
+     2    0.416714        2.3997        2.1463        0.000004     4.60650        0.168863        0.101224E-11
+     3    0.490338        2.0394      -0.22349        0.000000    0.499497E-01    0.168863        0.109760E-13
+     4    0.497094        2.0117        49460.        0.082946    0.244628E+10    0.170987        0.537549E-03
+     5    0.559124        1.7885       0.58360        0.000001    0.340589        0.170987        0.748413E-13
+     6    0.570219        1.7537       0.43272        0.000001    0.187243        0.170987        0.411449E-13
+     7    0.591919        1.6894      -0.40324        0.000001    0.162605        0.170987        0.357310E-13
+     8    0.676384        1.4785        2.5200        0.000004     6.35021        0.170987        0.139540E-11
+     9    0.745747        1.3409      -0.17861        0.000000    0.318999E-01    0.170987        0.700972E-14
+    10    0.766974        1.3038       -3535.5        0.005929    0.124998E+08    0.170998        0.274672E-05
+    11    0.875361        1.1424      -0.48366E+06    0.811113    0.233928E+12    0.374099        0.514036E-01
+    12    0.950756        1.0518      -0.59629E+06    1.000000    0.355566E+12    0.682808        0.781324E-01
+    13     1.02320       0.97733      -0.53226E+06    0.892613    0.283300E+12    0.928774        0.622526E-01
+    14     1.04865       0.95360       -2.1354        0.000004     4.55972        0.928774        0.100196E-11
+    15     1.08057       0.92544       -99919.        0.167567    0.998383E+10    0.937442        0.219386E-02
+    16     1.20808       0.82776      -0.26612E+06    0.446291    0.708202E+11    0.998929        0.155621E-01
+    17     1.22245       0.81803       -13289.        0.022286    0.176598E+09    0.999083        0.388059E-04
+    18     1.22253       0.81797       -32506.        0.054513    0.105662E+10     1.00000        0.232182E-03
+    19     1.22317       0.81755       -7.6427        0.000013     58.4108         1.00000        0.128352E-10
+    20     1.27449       0.78463       -2.1281        0.000004     4.52897         1.00000        0.995200E-12
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                            0.115178E+13                    0.253094    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTY DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1    0.378692        2.6407       -2.0448        0.000002     4.18128        0.127716E-11    0.930494E-12
+     2    0.416714        2.3997       0.25976E+06    0.212877    0.674749E+11    0.206100E-01    0.150157E-01
+     3    0.490338        2.0394      -0.12202E+07    1.000000    0.148897E+13    0.475410        0.331353    
+     4    0.497094        2.0117       -74.699        0.000061     5579.90        0.475410        0.124174E-08
+     5    0.559124        1.7885       0.90733E+06    0.743570    0.823245E+12    0.726867        0.183203    
+     6    0.570219        1.7537       0.53456E+06    0.438078    0.285751E+12    0.814149        0.635905E-01
+     7    0.591919        1.6894      -0.26300E+06    0.215532    0.691684E+11    0.835276        0.153926E-01
+     8    0.676384        1.4785       0.71912E+06    0.589327    0.517129E+12    0.993231        0.115081    
+     9    0.745747        1.3409        63645.        0.052158    0.405075E+10    0.994468        0.901446E-03
+    10    0.766974        1.3038       0.16850        0.000000    0.283937E-01    0.994468        0.631868E-14
+    11    0.875361        1.1424        1.5460        0.000001     2.39021        0.994468        0.531914E-12
+    12    0.950756        1.0518        1.7703        0.000001     3.13387        0.994468        0.697405E-12
+    13     1.02320       0.97733       -2.7297        0.000002     7.45152        0.994468        0.165825E-11
+    14     1.04865       0.95360       -28662.        0.023489    0.821495E+09    0.994719        0.182814E-03
+    15     1.08057       0.92544       -1.3585        0.000001     1.84557        0.994719        0.410709E-12
+    16     1.20808       0.82776        6.0812        0.000005     36.9809        0.994719        0.822967E-11
+    17     1.22245       0.81803      -0.59440        0.000000    0.353312        0.994719        0.786253E-13
+    18     1.22253       0.81797        6.3979        0.000005     40.9329        0.994719        0.910914E-11
+    19     1.22317       0.81755      -0.12687E+06    0.103975    0.160970E+11    0.999636        0.358219E-02
+    20     1.27449       0.78463        34520.        0.028290    0.119165E+10     1.00000        0.265188E-03
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                            0.327390E+13                    0.728567    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+
+          ***** PARTICIPATION FACTOR CALCULATION *****ROTZ DIRECTION
+                                                                                  CUMULATIVE     RATIO EFF.MASS
+  MODE   FREQUENCY       PERIOD      PARTIC.FACTOR     RATIO    EFFECTIVE MASS   MASS FRACTION   TO TOTAL MASS
+     1    0.378692        2.6407      -0.33646E-01    0.000000    0.113207E-02    0.160042E-13    0.129456E-13
+     2    0.416714        2.3997        3146.6        0.013795    0.990095E+07    0.139971E-03    0.113220E-03
+     3    0.490338        2.0394        10.813        0.000047     116.913        0.139972E-03    0.133694E-08
+     4    0.497094        2.0117       0.25227        0.000001    0.636415E-01    0.139972E-03    0.727759E-12
+     5    0.559124        1.7885      -0.22809E+06    1.000000    0.520260E+11    0.735637        0.594933    
+     6    0.570219        1.7537       -18.133        0.000079     328.793        0.735637        0.375984E-08
+     7    0.591919        1.6894       0.10645E+06    0.466689    0.113312E+11    0.895827        0.129576    
+     8    0.676384        1.4785        68354.        0.299679    0.467232E+10    0.961881        0.534293E-01
+     9    0.745747        1.3409       -12.260        0.000054     150.307        0.961881        0.171880E-08
+    10    0.766974        1.3038       0.12888E-02    0.000000    0.166106E-05    0.961881        0.189947E-16
+    11    0.875361        1.1424       0.69229E-01    0.000000    0.479267E-02    0.961881        0.548056E-13
+    12    0.950756        1.0518      -0.64758E-01    0.000000    0.419356E-02    0.961881        0.479546E-13
+    13     1.02320       0.97733       0.16797        0.000001    0.282135E-01    0.961881        0.322630E-12
+    14     1.04865       0.95360       -7928.9        0.034762    0.628682E+08    0.962769        0.718917E-03
+    15     1.08057       0.92544       0.11128        0.000000    0.123833E-01    0.962769        0.141607E-12
+    16     1.20808       0.82776      -0.60532        0.000003    0.366412        0.962769        0.419003E-11
+    17     1.22245       0.81803      -0.47040E-02    0.000000    0.221280E-04    0.962769        0.253040E-15
+    18     1.22253       0.81797      -0.49169E-01    0.000000    0.241755E-02    0.962769        0.276454E-13
+    19     1.22317       0.81755       -68.815        0.000302     4735.49        0.962769        0.541518E-07
+    20     1.27449       0.78463        51318.        0.224988    0.263354E+10     1.00000        0.301154E-01
+ -----------------------------------------------------------------------------------------------------------------
+   sum                                                            0.707359E+11                    0.808886    
+ -----------------------------------------------------------------------------------------------------------------
+
+
+ *** ANSYS BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+      188.062 MB WRITTEN ON ELEMENT MATRIX FILE: file.emat
+      123.875 MB WRITTEN ON ELEMENT SAVED DATA FILE: file.esav
+       91.875 MB WRITTEN ON ASSEMBLED MATRIX FILE: file.full
+       52.000 MB WRITTEN ON MODAL MATRIX FILE: file.mode
+     1476.250 MB WRITTEN ON RESULTS FILE: file.rst
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  CP =       117.016
+
+
+
+ *** ANSYS - ENGINEERING ANALYSIS SYSTEM  RELEASE Release 16.0     16.0     ***
+ ANSYS Multiphysics                                
+ 00000000  VERSION=WINDOWS x64   09:53:15  SEP 30, 2017 CP=    117.141
+
+                                                                               
+
+
+
+          ***** ANSYS RESULTS INTERPRETATION (POST1) *****
+
+ *** NOTE ***                            CP =     117.141   TIME= 09:53:15
+ The model contains an element type ( COMBIN14 ) that operates entirely  
+ in the nodal coordinate system.  Viewing nodal displacements or forces  
+ in other than the nodal coordinate system may be invalid.  See the      
+ elements manual description for more information.                       
+
+ *** NOTE ***                            CP =     117.344   TIME= 09:53:15
+ Reading results into the database (SET command) will update the current 
+ displacement and force boundary conditions in the database with the     
+ values from the results file for that load set.  Note that any          
+ subsequent solutions will use these values unless action is taken to    
+ either SAVE the current values or not overwrite them (/EXIT,NOSAVE).    
+
+
+ USE LOAD STEP     1  SUBSTEP     1  FOR LOAD CASE 0 
+
+ SET COMMAND GOT LOAD STEP=     1  SUBSTEP=     1  CUMULATIVE ITERATION=     1
+   TIME/FREQUENCY= 0.37869    
+ TITLE=                                                                         
+
+ PARAMETER NCOL =     1.000000000    
+
+ *** WARNING ***                         CP =     117.672   TIME= 09:53:16
+ ！*DIM is not a recognized POST1 command, abbreviation, or macro.       
+  This command will be ignored.                                          
+
+ SET PARAMETER DIMENSIONS ON  SEN TYPE=ARRA  DIMENSIONS=  6408     1     1
+
+ *** WARNING ***                         CP =     117.672   TIME= 09:53:16
+ Parameter SEN already exists.  It is deleted and redefined by the *DIM  
+ command.                                                                
+
+ *DO LOOP ON PARAMETER= I FROM  1.0000     TO  6408.0     BY  1.0000    
+
+ *GET  SEN       FROM  ELEM  920005  ITEM=SENE           VALUE=  46.4962387    
+
+ *ENDDO  INDEX= I                               
+
+ MATRIX WRITE OPERATION  *MWRITE 
+  SEN WRITE TO FILE sen_result.txt
+ LOOP DIRECTIONS=JIK   COUNTS=       1    6408       1       1       1
+ FORMAT=(6408e20.4)                                                           
+
+ ***** END OF INPUT ENCOUNTERED *****
+
+
+ NUMBER OF WARNING MESSAGES ENCOUNTERED=        109
+ NUMBER OF ERROR   MESSAGES ENCOUNTERED=          0
+
+
+
+ ***** PROBLEM TERMINATED BY INDICATED ERROR(S) OR BY END OF INPUT DATA *****
+
++--------------------- A N S Y S   S T A T I S T I C S ------------------------+
+
+Release: Release 16.0       Build: 16.0       Update: UP20141203   Platform: WINDOWS x64 
+Date Run: 09/30/2017   Time: 09:53
+Windows Process ID:         1768
+
+Processor Model: Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz
+
+Compiler: Intel(R) FORTRAN Compiler Version 14.0.0  (Build: 20140422)
+          Intel(R) C/C++ Compiler Version 14.0.0  (Build: 20140422)
+          Intel(R) Math Kernel Library Version 11.1.3 Product Build 20140917
+
+Total number of cores available         :    8
+Number of physical cores available      :    4
+Number of processes requested           :    1
+Number of threads per process requested :    4
+Total number of cores requested         :    4 (Shared Memory Parallel)                    
+
+GPU Acceleration: Not Requested
+
+Job Name: file
+Working Directory: E:\lindinan\ansys\guanhe\GuanheAnsysFilesZRM_FindbestOpt
+
+Total CPU time for main thread                    :       39.6 seconds
+Total CPU time summed for all threads             :      117.8 seconds
+
+Elapsed time spent pre-processing model (/PREP7)  :        0.0 seconds
+Elapsed time spent solution - preprocessing       :        9.5 seconds
+Elapsed time spent computing solution             :       28.1 seconds
+Elapsed time spent solution - postprocessing      :        0.0 seconds
+Elapsed time spent post-processing model (/POST1) :        0.0 seconds
+
+Equation solver computational rate                :    37842.5 Mflops
+
+Maximum total memory used                         :     2415.0 MB
+Maximum total memory allocated                    :     3138.0 MB
+Maximum total memory available                    :          8 GB
+
++------------------ E N D   A N S Y S   S T A T I S T I C S -------------------+
+
+
+ *---------------------------------------------------------------------------*
+ |                                                                           |
+ |                            ANSYS RUN COMPLETED                            |
+ |                                                                           |
+ |---------------------------------------------------------------------------|
+ |                                                                           |
+ | Ansys Release 16.0          Build 16.0         UP20141203     WINDOWS x64 |
+ |                                                                           |
+ |---------------------------------------------------------------------------|
+ |                                                                           |
+ | Database Requested(-db)  1024 MB    Scratch Memory Requested      1024 MB |
+ | Maximum Database Used     442 MB    Maximum Scratch Memory Used   1973 MB |
+ |                                                                           |
+ |---------------------------------------------------------------------------|
+ |                                                                           |
+ |        CP Time      (sec) =        117.765       Time  =  09:53:16        |
+ |        Elapsed Time (sec) =         42.000       Date  =  09/30/2017      |
+ |                                                                           |
+ *---------------------------------------------------------------------------*

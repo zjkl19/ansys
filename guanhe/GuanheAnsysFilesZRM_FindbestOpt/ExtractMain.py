@@ -32,15 +32,15 @@ firstFileName='firstFile.inp'      #第1个拼接文件
 secondFileName='secondFile.inp'
 thirdFileName='thirdFile.inp'
 
-sourcePath='e:\\sen_result.txt' #ansys计算结果存储文件路径
+sourcePath='sen_result.txt' #ansys计算结果存储文件路径
 ansysPath='C:\\progra~1\\ANSYSI~1\\v160\\ansys\\bin\\winx64\\ansys160.exe'    #ansys安装路径
 
 inputFile='GuanheNoDama.inp'   #ansys cmd 中输入文件（无损结构）
-outputFile='e:\\ansysOutput.txt'    #ansys cmd中输出文件
+outputFile='ansysOutput.txt'    #ansys cmd中输出文件
 
 #----------------------------------------------
 #计算无损情况下各个单元的模态应变能
-cmdStr=ansysPath + ' -b -p ane3fl -i ' + inputFile + ' -o ' + outputFile
+cmdStr=ansysPath + ' -g -b -p ane3fl -np 8 -i ' + inputFile + ' -o ' + outputFile
 
 os.system(cmdStr)
 
@@ -53,7 +53,7 @@ inputFile='GuanheDamageCombine.inp'   #ansys cmd 中输入文件（组合文件�
 #mseDama=[]  损伤后各单元模态应变能
 midFileStr=''  #中间文件字符串
 
-for k in range(0,nElems/2):
+for k in range(0,2):
 #for k in range(0,nElems):
     #controlOption=np.zeros((nElems)) 
     #controlOption=np.array([0,0,1])  #随机控制选项
@@ -103,7 +103,7 @@ for k in range(0,nElems/2):
         f.write(data2)
         f.write(data3)
     
-    cmdStr=ansysPath + ' -b -p ane3fl -i ' + inputFile + ' -o ' + outputFile
+    cmdStr=ansysPath + ' -g -b -p ane3fl -np 8 -i ' + inputFile + ' -o ' + outputFile
     
     os.system(cmdStr)
     

@@ -47,7 +47,7 @@ trial_num=1
 
 !-------------定义参数矩阵
 *DIM,ParVector,table,trial_num,7     
-*TREAD,ParVector,'ParVector','txt','E:\lindinan\ansys\guanhe\GuanheAnsysFilesZRM_FindbestOpt',0
+*TREAD,ParVector,'ParVector','txt',,0
 *DIM,t1,array,trial_num,2 
 *DIM,t2,array,trial_num,2 
 *DIM,t3,array,trial_num,2  
@@ -5266,7 +5266,7 @@ d,set8,all
 *enddo
 
 !提取频率
-*mwrite,FQ,E:\lindinan\ansys\guanhe\GuanheAnsysFilesZRM_FindbestOpt\f_result_test,txt,,jik,20,trial_num  !1行20列
+*mwrite,FQ,f_result_test,txt,,jik,20,trial_num  !1行20列
 (20e20.4) 
 
 !林迪南定义的后处理
@@ -5281,7 +5281,7 @@ nCol=1
 	*GET,SEN(i) ,elem,dElem(i),sene
 *enddo
 
-*mwrite,SEN,e:\sen_result,txt,,jik,nCol,nElems  !nElems行nCol列
+*mwrite,SEN,sen_result,txt,,jik,nCol,nElems  !nElems行nCol列
 (6408e20.4)
 
 save

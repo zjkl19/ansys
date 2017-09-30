@@ -1,0 +1,33 @@
+!该文件需配合xyhxiuzheng.inp文件使用
+
+/prep7
+myType=100
+
+                  
+ET,100,SOLID45       
+mp,ex,100,t1*0.9                                                                 
+mp,dens,100,2550                                                                 
+mp,prxy,100,0.167
+
+
+myEsel=86046   !选择的单元
+
+esel,s,elem,,myEsel
+EMODIF,all,MAT,100 !修改所选单元的材料属性
+
+allsel
+
+/SOLU                                                                
+ANTYPE,2    
+pstres,on                                                                           
+MODOPT,lanb,10,,,,1                         
+MXPAND,10, , ,yes                                                                                 
+SOLVE                                              
+FINISH
+
+/post1
+set,1,5    !竖向1阶
+
+myEsel=86046
+esel,s,elem,,myEsel
+presol,sene

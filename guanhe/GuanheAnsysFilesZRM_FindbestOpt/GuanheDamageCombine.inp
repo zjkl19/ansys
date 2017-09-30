@@ -1,7 +1,7 @@
 RESUME, originalFile,db
 
-dFactor(10)=0.9
-damaIndex=10
+dFactor(2)=0.9
+damaIndex=2
 
 /prep7
 
@@ -45,6 +45,6 @@ nCol=1
 *do,i,1,nElems,1
 	*GET,SEN(i) ,elem,dElem(i),sene
 *enddo
-*mwrite,SEN,e:\sen_result,txt,,jik,nCol,nElems  !nElems行nCol列
+*mwrite,SEN,sen_result,txt,,jik,nCol,nElems  !nElems行nCol列
 (6408e20.4)
 

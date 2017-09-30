@@ -1,0 +1,12 @@
+# 忽略所有ansys生成的辅助文件
+*.db
+*.BCS
+*.emat
+*.esav
+*.full
+*.err
+*.rst
+*.mlv
+*.log
+*.dbb
+*.mode
